@@ -16,10 +16,6 @@
     margin-bottom: 0;
 }
 
-.jumbotron h1 {
-    font-weight: 300;
-}
-
 .jumbotron .container {
     max-width: 40rem;
 }
@@ -32,10 +28,11 @@ footer {
 footer p {
     margin-bottom: .25rem;
 }
+/* End Plantilla de bootstrap----------------------------------------------------------- */
 
-/*----------------------------------------------------------- */
+/*Start Search----------------------------------------------------------- */
 
-#banner{
+#search{
     margin-bottom: 0;
     background-image: url('../img/mantel.jpg');
     background-repeat: no-repeat;
@@ -45,12 +42,27 @@ footer p {
     position: relative;
 }
 
-#texto-banner{
+#search_text{
     color: white;
 }
 
+.search_header{
+    color: #703520;
+    font-weight: bold;
+    
+}
+
+/*End Search----------------------------------------------------------- */
+
+/*Start listado de recetas--------------------------------------------- */
+.receta_card:hover{
+    background-color: #f3e7e2;
+}
+
+
 .inicio_titulos{
     color: rgb(90, 90, 90);
+    margin-bottom: 0px !important;
 }
 
 .receta_nombre{
@@ -79,3 +91,17 @@ img.emoji {
     background-color: #f5f7f7;
     margin: 0 .5em .5em 0;
 }
+/*End listado de recetas--------------------------------------------- */
+
+/*Start detalles de recetas--------------------------------------------- */
+
+.detalleReceta_nombre{
+    color: rgb(90, 90, 90);
+    margin-bottom: 0px !important;
+}
+
+.card-box{
+    padding: 40px;
+    background-color: white;
+}
+

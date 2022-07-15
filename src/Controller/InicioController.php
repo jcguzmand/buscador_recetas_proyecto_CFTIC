@@ -13,7 +13,6 @@ class InicioController extends AbstractController
     #[Route('/inicio', name: 'inicio')]
     public function inicio(Request $request, EntityManagerInterface $em)
     {
-        
         //Creacion de la consulta de recetas por valoración-----------------------------------------------------
         $queryByVal = $em->createQuery('SELECT r FROM App\Entity\Recetas r ORDER BY r.valoracion DESC');
         //Establecer el limit de la consulta, max 6 registros

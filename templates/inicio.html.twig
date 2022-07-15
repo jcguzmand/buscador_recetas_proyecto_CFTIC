@@ -1,73 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inicio
+{% block title %}
+	Inicio
+{% endblock %}
+
+{% block search %}
+	{{include('elements/search.html.twig')}}
 {% endblock %}
 
 {% block content %}
-
 	<!--Contenido dinámico -->
-	<div class="album py-5 bg-light">
-		<div class="container">
-            <h3 class="inicio_titulos">Recetas más valoradas</h3>
-			<div class="row">
-				{% for receta in recetasByVal %}
-					<div class="col-md-6">
-						<div class="card mb-4 shadow-sm">
-							<svg class="bd-placeholder-img card-img-top" width="100%" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" focusable="false">
-								<title>Placeholder</title>
-								<rect width="100%" height="100%" fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Imagen</text>
-							</svg>
-							<div class="card-body">
-                                <a href="#" class="receta_nombre">{{ receta.nombre }}</a>
-								<div class="d-flex justify-content-between align-items-center mt-3">
-									<div class="btn-group">
-                                        {% set tags = receta.tags %}
-                                        {% set arrayTags = tags|split(',') %}
-                                        {% for tag in arrayTags %}
-                                            <a href="#" class="rdr-tag">{{ tag }}</a>
-                                        {% endfor %}
-									</div>
-									<h5>
-                                        <small class="text-muted">
-                                            <img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg"> {{ receta.valoracion }}/5
-                                        </small>
-                                    </h5>
-								</div>
+	<h3 class="mt-4 inicio_titulos">Recetas más valoradas</h3>
+	<hr>
+	<div class="row">
+		{% for receta in recetasByVal %}
+			<div class="col-md-6">
+				<div class="card mb-4 shadow-sm receta_card">
+					<img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.nombre }}">
+					<div class="card-body">
+						<a href="{{ path('verDetalles', {id: receta.Id})}}" class="receta_nombre">{{ receta.nombre }}</a>
+						<div class="row mt-3">
+							<div class="col-sm-10">
+								{% set tags = receta.tags %}
+								{% set arrayTags = tags|split(',') %}
+								{% for tag in arrayTags %}
+									<a href="#" class="rdr-tag">{{ tag }}</a>
+								{% endfor %}
+							</div>
+							<div class="col-sm-2">
+							<h5>
+								<small class="text-muted">
+									<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">{{ receta.valoracion }}/5
+								</small>
+							</h5>
 							</div>
 						</div>
 					</div>
-				{% endfor %}
+				</div>
 			</div>
-            <h3 class="mt-4 inicio_titulos">Últimas recetas añadidas</h3>
-			<div class="row">
-				{% for receta in recetasByVal %}
-					<div class="col-md-6">
-						<div class="card mb-4 shadow-sm">
-							<svg class="bd-placeholder-img card-img-top" width="100%" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" focusable="false">
-								<title>Placeholder</title>
-								<rect width="100%" height="100%" fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Imagen</text>
-							</svg>
-							<div class="card-body">
-								<a href="#" class="receta_nombre">{{ receta.nombre }}</a>
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<a href="#" class="rdr-tag">tomate</a>
-                                        <a href="#" class="rdr-tag">patata</a>
-									</div>
-									<h5>
-                                        <small class="text-muted">
-                                            <img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg"> {{ receta.valoracion }}/5
-                                        </small>
-                                    </h5>
-								</div>
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-		</div>
+		{% endfor %}
 	</div>
-
+	<h3 class="mt-4 inicio_titulos">Últimas recetas añadidas</h3>
+	<hr>
+	<div class="row">
+		{% for receta in recetasByFecha %}
+			<div class="col-md-6">
+				<div class="card mb-4 shadow-sm receta_card">
+					<img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.nombre }}">
+					<div class="card-body">
+						<a href="#" class="receta_nombre">{{ receta.nombre }}</a>
+						<div class="d-flex justify-content-between align-items-center mt-3">
+							<div class="btn-group">
+								{% set tags = receta.tags %}
+								{% set arrayTags = tags|split(',') %}
+								{% for tag in arrayTags %}
+									<a href="#" class="rdr-tag">{{ tag }}</a>
+								{% endfor %}
+							</div>
+							<h5>
+								<small class="text-muted">
+									<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">
+									{{ receta.valoracion }}/5
+								</small>
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<!--Fin Contenido dinámico -->
 {% endblock %}

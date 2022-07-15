@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{receta.Nombre}}
+{% endblock %}
+
+{% block content %}
+
+	<!--Contenido dinámico -->
+	<div class="card-box">
+		<h2 class="detalleReceta_nombre">{{receta.Nombre}}</h2>
+		<hr>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row mb-2">
+					<div class="col-md-9">
+						<div class="row mb-2">
+							<div class="col-sm-2">dificultad</div>
+							<div class="col-sm-2">tiempo</div>
+							<div class="col-sm-2">personas</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+                        <div class="row">
+							<div class="col-sm-12">autor</div>
+						</div>
+                    </div>
+                    <div class="col-md-9">
+						<div class="row">
+							<div class="col-sm-2">valoracion</div>
+							<div class="col-sm-2">votos</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9"><img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.Nombre }}"></div>
+					<div class="col-md-3">Ingredientes</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -11,7 +11,7 @@
 		href="/libs/bootstrap4/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet"/>
 		<!-- JS Fontawesone -->
 		<script src="https://kit.fontawesome.com/eb9a666b3e.js" crossorigin="anonymous"></script>
-		<!-- CSS personalizados-->
+		<!-- Bloque CSS personalizados-->
 		{% block stylesheets %}{% endblock %}
 	</head>
 	<body>
@@ -22,13 +22,18 @@
 		{% else %}
 			{{include('menus/menuRegistrados.html.twig')}}
 		{% endif %}
-		<!-- Buscador -->
-		{% if 1 == 1 %}
-			{{include('elements/search.html.twig')}}
-		{% endif %}
-		<!-- Contenido personalizado -->
-		{% block content %}{% endblock %}
-		<!-- Pie de página -->
+
+		<!-- Bloque buscador -->
+		{% block search %}{% endblock %}
+
+		<div class="album py-5 bg-light">
+			<div class="container">
+				<!-- Bloque contenido dinámico -->
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+
+		<!-- Bloque pie de página -->
 		{% if 1 == 1 %}
 			{{include('elements/footer.html.twig')}}
 		{% endif %}
@@ -36,7 +41,7 @@
 		<!-- JS -->
 		<script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 		<script src="/libs/bootstrap4/bootstrap.bundle.min.js"></script>
-		<!-- JS personalizados-->
+		<!--Bloque JS personalizados-->
 		{% block javascripts %}{% endblock %}
 	</body>
 </html>
