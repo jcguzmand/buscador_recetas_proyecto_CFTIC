@@ -21,18 +21,17 @@
 						<a href="{{ path('verDetalles', {id: receta.Id})}}" class="receta_nombre">{{ receta.nombre }}</a>
 						<div class="row mt-3">
 							<div class="col-sm-10">
-								{% set tags = receta.tags %}
-								{% set arrayTags = tags|split(',') %}
-								{% for tag in arrayTags %}
+								{% set index = loop.index %}
+								{% for tag in arrayTagsVal[loop.index0] %}
 									<a href="#" class="rdr-tag">{{ tag }}</a>
 								{% endfor %}
 							</div>
 							<div class="col-sm-2">
-							<h5>
-								<small class="text-muted">
-									<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">{{ receta.valoracion }}/5
-								</small>
-							</h5>
+								<h5>
+									<small class="text-muted">
+										<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">{{ receta.valoracion }}/5
+									</small>
+								</h5>
 							</div>
 						</div>
 					</div>
@@ -48,21 +47,21 @@
 				<div class="card mb-4 shadow-sm receta_card">
 					<img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.nombre }}">
 					<div class="card-body">
-						<a href="#" class="receta_nombre">{{ receta.nombre }}</a>
-						<div class="d-flex justify-content-between align-items-center mt-3">
-							<div class="btn-group">
-								{% set tags = receta.tags %}
-								{% set arrayTags = tags|split(',') %}
-								{% for tag in arrayTags %}
+						<a href="{{ path('verDetalles', {id: receta.Id})}}" class="receta_nombre">{{ receta.nombre }}</a>
+						<div class="row mt-3">
+							<div class="col-sm-10">
+								{% set index = loop.index %}
+								{% for tag in arrayTagsFecha[loop.index0] %}
 									<a href="#" class="rdr-tag">{{ tag }}</a>
 								{% endfor %}
 							</div>
-							<h5>
-								<small class="text-muted">
-									<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">
-									{{ receta.valoracion }}/5
-								</small>
-							</h5>
+							<div class="col-sm-2">
+								<h5>
+									<small class="text-muted">
+										<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">{{ receta.valoracion }}/5
+									</small>
+								</h5>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -132,7 +132,7 @@ class Recetas
     private $usuarioFavoritas;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="receta")
      */
     private $comentarios;
 

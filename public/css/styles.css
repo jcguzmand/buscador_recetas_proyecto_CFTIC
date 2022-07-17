@@ -56,7 +56,7 @@ footer p {
 
 /*Start listado de recetas--------------------------------------------- */
 .receta_card:hover{
-    background-color: #f3e7e2;
+    background-color: #f1ebe8;
 }
 
 
@@ -88,20 +88,103 @@ img.emoji {
     display: inline-block;
     padding: .2em .8em;
     border-radius: 30px;
-    background-color: #f5f7f7;
+    background-color: #dbdfdf;
     margin: 0 .5em .5em 0;
+}
+
+#receta_valoracion{
+    display: inline;
 }
 /*End listado de recetas--------------------------------------------- */
 
 /*Start detalles de recetas--------------------------------------------- */
 
-.detalleReceta_nombre{
-    color: rgb(90, 90, 90);
+.detalleReceta_titulo{
+    color: #bd461b;
     margin-bottom: 0px !important;
 }
 
+.detalleReceta_subtitulo{
+    color: #bd461b;
+}
+
 .card-box{
-    padding: 40px;
+    padding: 60px;
     background-color: white;
 }
 
+#ingredientes{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#ingredientes ul {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    padding: 0.5em 0;
+    overflow-wrap: break-word;
+    list-style: none;
+    -webkit-padding-start: 0;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    display: block;
+}
+
+#ingredientes ul li{
+    background-color: transparent;
+    padding: .40rem 1.25rem;
+    color: #5c5c5c;
+    font-weight: 100;
+}
+
+@media only screen and (max-width: 800px) {
+    #ingredientes ul {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }  
+}
+
+@media only screen and (max-width: 540px) {
+    .card-box{
+        padding: 30px;
+        
+    } 
+}
+
+#detalleReceta_fondoIngr{
+    background-color: #f1ebe8;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.rdr-author {
+    font-size: 14px;
+    width: 30%;
+    margin-top: 0;
+    text-align: right;
+}
+
+.rdr-avatar {
+    clip-path: circle(20px at center);
+    vertical-align: middle;
+}
+
+#autor p{
+    overflow-wrap: break-word;
+    display: inline;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+@media only screen and (max-width: 800px) {
+    #receta_autor {
+        justify-content: flex-start !important;
+    }
+    
+}
