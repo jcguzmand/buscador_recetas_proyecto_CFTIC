@@ -8,10 +8,16 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarColor01">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item">
-				<a class="nav-link" href="#">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fa-solid fa-list"></i>
-					Categorias</a>
+					Categorias
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					{% for cat in categorias %}
+						<a class="dropdown-item" href="{{ path('inicio', {idCategoria: cat.id }) }}">{{ cat.nombre }}</a>
+					{% endfor %}
+				</div>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">
@@ -28,4 +34,3 @@
 		</ul>
 	</div>
 </nav>
-

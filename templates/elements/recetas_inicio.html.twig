@@ -1,0 +1,32 @@
+<h3 class="mt-4 inicio_titulos">{{ titulo }}</h3>
+<hr>
+<div class="row">
+	{% for receta in recetas %}
+		<div class="col-md-4">
+			<div class="card mb-4 shadow-sm receta_card">
+				<img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.nombre }}">
+				<div class="card-body">
+					<a href="{{ path('verDetalles', {id: receta.Id})}}" class="receta_nombre">{{ receta.nombre }}</a>
+					<div class="row mt-3">
+						<div class="col-sm-12">
+							{% set index = loop.index %}
+							{% for tag in arrayTags[loop.index0] %}
+								<a href="#" class="rdr-tag">{{ tag }}</a>
+							{% endfor %}
+						</div>
+						<div class="col-sm-12">
+							<h5>
+								<small class="text-muted">
+									<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">{{ receta.valoracion }}/5
+								</small>
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+<div>
+	{{ knp_pagination_render(recetas, 'paginacion/my_pagination.html.twig') }}
+</div>

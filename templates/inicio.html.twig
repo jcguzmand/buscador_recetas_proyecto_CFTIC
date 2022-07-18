@@ -10,63 +10,7 @@
 
 {% block content %}
 	<!--Contenido dinámico -->
-	<h3 class="mt-4 inicio_titulos">Recetas más valoradas</h3>
-	<hr>
-	<div class="row">
-		{% for receta in recetasByVal %}
-			<div class="col-md-6">
-				<div class="card mb-4 shadow-sm receta_card">
-					<img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.nombre }}">
-					<div class="card-body">
-						<a href="{{ path('verDetalles', {id: receta.Id})}}" class="receta_nombre">{{ receta.nombre }}</a>
-						<div class="row mt-3">
-							<div class="col-sm-10">
-								{% set index = loop.index %}
-								{% for tag in arrayTagsVal[loop.index0] %}
-									<a href="#" class="rdr-tag">{{ tag }}</a>
-								{% endfor %}
-							</div>
-							<div class="col-sm-2">
-								<h5>
-									<small class="text-muted">
-										<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">{{ receta.valoracion }}/5
-									</small>
-								</h5>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		{% endfor %}
+	<div id="container_recetas">
+		{% include 'elements/recetas_inicio.html.twig' %}
 	</div>
-	<h3 class="mt-4 inicio_titulos">Últimas recetas añadidas</h3>
-	<hr>
-	<div class="row">
-		{% for receta in recetasByFecha %}
-			<div class="col-md-6">
-				<div class="card mb-4 shadow-sm receta_card">
-					<img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.nombre }}">
-					<div class="card-body">
-						<a href="{{ path('verDetalles', {id: receta.Id})}}" class="receta_nombre">{{ receta.nombre }}</a>
-						<div class="row mt-3">
-							<div class="col-sm-10">
-								{% set index = loop.index %}
-								{% for tag in arrayTagsFecha[loop.index0] %}
-									<a href="#" class="rdr-tag">{{ tag }}</a>
-								{% endfor %}
-							</div>
-							<div class="col-sm-2">
-								<h5>
-									<small class="text-muted">
-										<img draggable="false" role="img" class="emoji" alt="⭐" src="https://s.w.org/images/core/emoji/13.1.0/svg/2b50.svg">{{ receta.valoracion }}/5
-									</small>
-								</h5>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
-	<!--Fin Contenido dinámico -->
 {% endblock %}

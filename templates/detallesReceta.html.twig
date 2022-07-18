@@ -9,7 +9,7 @@
 
 hola
 	{% for comentario in receta.comentarios %}
-		<li class="list-group-item">{{ comentario.contenido }} - {{ comentario.usuario.nombre }} - {{ comentario.FechaCreacion|date('full', 'full', locale='fr') }}</li>
+		<li class="list-group-item">{{ comentario.contenido }} - {{ comentario.usuario.nombre }} - {{ comentario.FechaCreacion|date("d/m/y \\a \\l\\a\\s H:i") }}</li>
 	{% endfor %}
 hola
 
