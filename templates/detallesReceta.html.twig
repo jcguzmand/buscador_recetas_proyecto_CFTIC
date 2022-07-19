@@ -25,9 +25,10 @@ hola
 				<div class="row mb-4">
 					<div class="col-md-9">
 						<div class="row mb-2">
-							<div class="col-sm-2"><span class="rdr-tag">Dificultad</span></div>
-							<div class="col-sm-2"><span class="rdr-tag">Tiempo</span></div>
-							<div class="col-sm-2"><span class="rdr-tag">Personas</span></div>
+							<div class="col-sm-auto"><span><a href="{{ path('filtroCategoria', {'id': receta.categoria.id })}}" class="rdr-tag">{{ receta.categoria.nombre }}</a></span></div>
+							<div class="col-sm-auto"><span class="rdr-tag">Dificultad</span></div>
+							<div class="col-sm-auto"><span class="rdr-tag">Tiempo</span></div>
+							<div class="col-sm-auto"><span class="rdr-tag">Personas</span></div>
 						</div>
 					</div>
 					<div class="col-md-3  d-flex justify-content-end" id="receta_autor">

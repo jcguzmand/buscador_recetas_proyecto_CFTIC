@@ -11,7 +11,7 @@
 						<div class="col-sm-12">
 							{% set index = loop.index %}
 							{% for tag in arrayTags[loop.index0] %}
-								<a href="#" class="rdr-tag">{{ tag }}</a>
+								<a href="{{ path('filtroIngrediente', {'nombre': tag })}}" class="rdr-tag">{{ tag }}</a>
 							{% endfor %}
 						</div>
 						<div class="col-sm-12">
