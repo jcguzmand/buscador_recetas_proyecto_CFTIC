@@ -2,13 +2,18 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Responsive bootstrap 4 admin template" name="description"/>
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title>
 			{% block title %}{% endblock %}
 		</title>
-		<!-- CSS -->
+		<!-- Custom CSS -->
 		<link href="css/styles.css" rel="stylesheet" type="text/css">
-		<link
-		href="/libs/bootstrap4/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet"/>
+		<!-- App CSS -->
+		<link href="/libs/bootstrap4/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/libs/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/>
 		<!-- JS Fontawesone -->
 		<script src="https://kit.fontawesome.com/eb9a666b3e.js" crossorigin="anonymous"></script>
 		<!-- Bloque CSS personalizados-->
@@ -38,9 +43,10 @@
 			{{include('elements/footer.html.twig')}}
 		{% endif %}
 
-		<!-- JS -->
+		<!-- App JS -->
 		<script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 		<script src="/libs/bootstrap4/bootstrap.bundle.min.js"></script>
+		<script src="/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
 		<!--Bloque JS personalizados-->
 		{% block javascripts %}{% endblock %}
 	</body>
