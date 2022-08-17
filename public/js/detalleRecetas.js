@@ -1,5 +1,6 @@
 $(document).ready(function () {
     initStarRating();
+    initAddComentarios();
 });
 
 function initStarRating() {
@@ -30,10 +31,8 @@ function addValoracion(currentRating) {
         dataType: 'json',
         data: formData,
         success: function (data, textStatus, xhr) {
-            console.log('Contenido del data en formato json');
+            console.log('Respuesta de Ajax en formato json');
             console.log(data);
-            console.log(data.votosTotal);
-            console.log(data.valMedia);
             $('#numVal').html(data.votosTotal + ' votos');
             $('#valPromedio').html(data.valMedia + '/5');
 
@@ -44,5 +43,39 @@ function addValoracion(currentRating) {
             console.log('Error al añadir la valoracion');
         }
     });
+}
+
+function initAddComentarios() {
+    $('#form-add-comentarios').off('submit');
+    $('#form-add-comentarios').on('submit', function (event) {
+        event.preventDefault();
+        addComentarios();
+        $('#contenido_textarea').val('');
+    });
+}
+
+function addComentarios() {
+    var contenido = $('#contenido_textarea').val();
+    var idReceta = $('#idReceta').val();
+
+    var formData = {
+        'contenido': contenido,
+        'idReceta': idReceta
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/add_comentario',
+        dataType: 'html',
+        data: formData,
+        success: function (data, textStatus, xhr) {
+            $('#container_lista_comentarios').html(data);
+            console.log(data);
+        },
+        error: function (datos) {
+            console.log('No ha sido posible contactar. Inténtelo de nuevo más tarde');
+        }
+    });
+    
 }
 

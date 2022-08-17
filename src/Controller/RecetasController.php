@@ -9,7 +9,7 @@ use App\Entity\Recetas;
 use App\Entity\Categorias;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+//use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class RecetasController extends AbstractController
@@ -229,7 +229,7 @@ class RecetasController extends AbstractController
              );  */
             
             if(!empty($recetas)){
-                $titulo  = 'Recetas encontradas con esos ingredientes:';
+                $titulo  = count($recetas) . ' recetas encontradas con esos ingredientes:';
             }else{
                 $titulo  = 'Lo sentimos, no hemos encontrado recetas para esos ingredientes. Por favor, vuelva a intentarlo.';
             }
@@ -254,14 +254,14 @@ class RecetasController extends AbstractController
     }
 
     #[Route('/add_valoracion', name: 'añadirValoracion')]
-    public function añadirValoracion(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator)
+    public function añadirValoracion(Request $request, EntityManagerInterface $em)
     {
-        //Recuperar los datos de la petición AJAX
+        //Recuperar los datos de la petición AJAX por método post
         $valoracion = $request->request->get('valoracion');
         $idReceta   = $request->request->get('idReceta');
 
         //Recuperar la receta
-        $receta = $em->getRepository(Recetas::class)->find(intval($idReceta));
+        $receta = $em->getRepository(Recetas::class)->find($idReceta);
 
         //Modificar la valoración de la receta
         $valActual = $receta->getValoracion();
@@ -279,7 +279,6 @@ class RecetasController extends AbstractController
         //Calcula el promedio de valoracion por voto
         $valMedia = number_format($valTotal / $votosTotal, 1, '.', '');
         
-
         //Devolver datos en formato json 
         return $this->json([
             'votosTotal'   => $votosTotal,

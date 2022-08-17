@@ -26,11 +26,16 @@
 			</li>
 		</ul>
 		<ul class="navbar-nav justify-content-end">
-			<li class="nav-item">
-				<a class="nav-link" href="#">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fa-solid fa-user"></i>
-					Iniciar sesión</a>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="{{ path('inicio') }}">Conéctate</a>
+					<a class="dropdown-item" href="{{ path('inicio') }}">Regístrate</a>
+				</div>
 			</li>
+
 		</ul>
 	</div>
 </nav>

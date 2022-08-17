@@ -1,3 +1,7 @@
+/* Fuentes-------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+
 /* Plantilla de bootstrap----------------------------------------------------------- */
 .jumbotron {
     padding-top: 3rem;
@@ -28,7 +32,6 @@ footer {
 footer p {
     margin-bottom: .25rem;
 }
-/* End Plantilla de bootstrap----------------------------------------------------------- */
 
 /*Start Search----------------------------------------------------------- */
 
@@ -52,7 +55,6 @@ footer p {
     
 }
 
-/*End Search----------------------------------------------------------- */
 
 /*Start listado de recetas--------------------------------------------- */
 .receta_card:hover{
@@ -95,7 +97,6 @@ img.emoji {
 #receta_valoracion{
     display: inline;
 }
-/*End listado de recetas--------------------------------------------- */
 
 /*Start detalles de recetas--------------------------------------------- */
 
@@ -109,7 +110,7 @@ img.emoji {
 }
 
 .card-box{
-    padding: 60px;
+    padding: 70px;
     background-color: white;
 }
 
@@ -137,6 +138,7 @@ img.emoji {
     background-color: transparent;
     padding: .40rem 1.25rem;
     color: #5c5c5c;
+    font-family: 'Nunito Sans', sans-serif;
     font-weight: lighter;
 }
 
@@ -193,3 +195,96 @@ img.emoji {
     margin-bottom: 10px;
     margin-top: 10px;
 }
+
+#elaboracion ol{
+    list-style: none;
+    counter-reset: li;
+}
+
+#elaboracion li{
+    font-family: 'Nunito Sans', sans-serif;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #2C3032
+}
+
+#elaboracion li:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: 1em;
+    box-sizing: border-box;
+    width: 2em;
+    height: 2em;
+    border-radius: 2em;
+    color: #576673;
+    background-color: #f5f7f7;
+    text-align: center;
+    padding: .3em .6em;
+}
+
+#elaboracion h3{
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #2C3032;
+    font-weight: 200;
+
+}
+
+#comentarios ul{
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 20px;
+    border-bottom: solid 1px #dfe8eb;
+}
+
+@media only screen and (max-width: 992px) {
+    #comentarios ul{
+        margin-left: 0px;
+        margin-right: 0px;
+    }  
+}
+
+#comentarios p{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #2C3032
+}
+
+#comentarios h5{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #2C3032;
+    font-weight: 200;
+    font-size: 16px;
+}
+
+#comentarios span{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #7a7a7a;
+    font-size: 14px;
+}
+
+#comentarios h5 i{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #bd461b;
+}
+
+#comentarios_form form{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+@media only screen and (max-width: 992px) {
+    #comentarios_form form{
+        margin-left: 0px;
+        margin-right: 0px;
+    }  
+}
+
+#comentarios_form label{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #5c5c5c;
+}
+
+
+

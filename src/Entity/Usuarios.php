@@ -75,6 +75,13 @@ class Usuarios
      */
     private $favoritas;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="imagen", type="string", length=50, nullable=true)
+     */
+    private $imagen;
+
     public function __construct()
     {
         $this->recetas = new ArrayCollection();
@@ -159,5 +166,15 @@ class Usuarios
         return $this;
     }
 
+    public function getImagen(): ?string
+    {
+        return $this->imagen;
+    }
 
+    public function setImagen(?string $imagen): self
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
 }

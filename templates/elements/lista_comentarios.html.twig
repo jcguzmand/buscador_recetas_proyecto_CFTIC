@@ -1,0 +1,26 @@
+{% if fecha is defined %}
+    {{dump(fecha)}}
+{% endif %}
+
+<div class="row" id="comentarios">
+	<div class="col-sm-12 mb-4">
+		<h4 class="detalleReceta_subtitulo mb-4 mt-4">Déjanos tus comentarios sobre esta receta:</h4>
+		{% if receta.comentarios is not empty %}
+			<ul class="list-group list-group-flush">
+				{% for comentario in receta.comentarios %}
+					<li class="list-group-item p-4">
+						<div class="d-flex w-100 justify-content-between mb-3">
+							<h5>
+								<i>{{ comentario.usuario.nombre }}</i>
+								dice:</h5>
+							<span>{{ comentario.FechaCreacion|date("d/m/y \\a \\l\\a\\s H:i") }}</span>
+						</div>
+						<p class="mb-1">{{ comentario.contenido }}</p>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p class="mb-1">Esta receta todavía no tiene comentarios, escribe tú el primero!!!</p>
+		{% endif %}
+	</div>
+</div>
