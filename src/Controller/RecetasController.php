@@ -51,7 +51,7 @@ class RecetasController extends AbstractController
         $categorias = $em->getRepository(Categorias::class)->findAll();
 
         //Retorno de la vista con peticiones GET
-        return $this->render('inicio.html.twig', [
+        return $this->render('recetas/inicio.html.twig', [
             'recetas'    => $recetas,
             'arrayTags'  => $arrayTags,
             'categorias' => $categorias,
@@ -101,7 +101,7 @@ class RecetasController extends AbstractController
         $categorias = $em->getRepository(Categorias::class)->findAll();
 
         //Retorno de la vista con peticiones GET
-        return $this->render('inicio.html.twig', [
+        return $this->render('recetas/inicio.html.twig', [
             'recetas'    => $recetas,
             'arrayTags'  => $arrayTags,
             'categorias' => $categorias,
@@ -153,7 +153,7 @@ class RecetasController extends AbstractController
         $categorias = $em->getRepository(Categorias::class)->findAll();
 
         //Retorno de la vista con peticiones GET
-        return $this->render('inicio.html.twig', [
+        return $this->render('recetas/inicio.html.twig', [
             'recetas'    => $recetas,
             'arrayTags'  => $arrayTags,
             'categorias' => $categorias,
@@ -182,7 +182,7 @@ class RecetasController extends AbstractController
         $categorias = $em->getRepository(Categorias::class)->findAll();
 
         //Retorno la vista con los datos--------------------------------------------------------------
-        return $this->render('detallesReceta.html.twig', [
+        return $this->render('recetas/detallesReceta.html.twig', [
             'receta'            => $receta,
             'arrayIngredientes' => $arrayIngredientes,
             'categorias'        => $categorias

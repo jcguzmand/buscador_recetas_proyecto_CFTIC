@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Inicio
+{% endblock %}
+
+{% block menu %}
+	{% if 1 == 1 %}
+		{{include('elements/menus/menuAnonimos.html.twig')}}
+	{% else %}
+		{{include('elements/menus/menuRegistrados.html.twig')}}
+	{% endif %}
+{% endblock %}
+
+{% block search %}
+	{{include('elements/search.html.twig')}}
+{% endblock %}
+
+{% block content %}
+	<!--Contenido dinámico -->
+	<div class="album py-4 bg-light">
+		<div class="container">
+			<div id="container_searchRecetas">
+				{% include 'elements/recetas_inicio.html.twig' %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	{{include('elements/footer.html.twig')}}
+{% endblock %}
+
+{% block javascripts %}
+	<script src="/js/recetas.js"></script>
+{% endblock %}

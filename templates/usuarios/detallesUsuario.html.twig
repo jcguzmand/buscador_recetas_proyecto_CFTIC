@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+	<!--Contenido dinámico -->
+	<div class="album py-4 bg-light">
+		<div class="container">
+			<div class="card-box">
+				<h1 class="detalleReceta_titulo">{{usuario.Nombre}}</h1>
+				<hr id="titulo_separador">
+				{{usuario.Nombre}}
+				- id
+				{{usuario.id}}
+			</div>
+		</div>
+	</div>
+
+
+	favoritas
+	{% for favorita in usuario.favoritas %}
+		<li class="list-group-item">{{ favorita.receta.nombre }}</li>
+	{% endfor %}
+	favoritas
+	{{dump(usuario)}}
+
+{% endblock %}

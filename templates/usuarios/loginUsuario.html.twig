@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-6">
+				<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
+					<img src="img/logo_inverso.png" alt="Logotipo" height="50">
+				</a>
+				<div class="card" id="card_formulario">
+					<div class="card-body m-4">
+						<form action="{{ path('conectarUsuario') }}" method="POST" id="form_login">
+                        
+
+                            <div class="message message--error mb-3">
+                                <p>
+                                    <strong>Tu identificación no se ha podido realizar.</strong>
+                                    Comprueba que has introducido tu correo electrónico y contraseña correctamente. Recuerda que debes respetar las mayúsculas y las minúsculas.       
+                                </p>
+							</div>
+
+
+							<fieldset>
+							<legend>Conéctate</legend>
+							<div class="form-group">
+								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Correo electrónico:</label>
+								<input class="form-control form-control-lg" type="email" placeholder="Correo electrónico" id="email" name="email">
+							</div>
+							<div class="form-group mb-5">
+								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Contraseña:</label>
+								<input class="form-control form-control-lg" type="password" placeholder="Contraseña" id="password" name="password">
+							</div>
+							<a href="#">
+								<p id="msg_olvidar">
+									<u>¿Olvidaste la contraseña?</u>
+								</p>
+							</a>
+							<div class="input-group mt-3">
+								<button type="submit" class="btn btn-primary mr-2 mt-2">
+									<b>Entra</b>
+								</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<p class="align-center color-primary mt-4">Si no tienes cuenta,
+				<a href="{{ path('mostrarFormularioRegistro') }}">
+					regístrate
+				</a>
+			</p>
+		</div>
+
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/login.js"></script>
+{% endblock %}

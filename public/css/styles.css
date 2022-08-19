@@ -1,6 +1,29 @@
 /* Fuentes-------------------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 
+/* Menú de bootstrap---------------------------------------------------------------- */
+
+.navbar-dark .navbar-nav .nav-link{
+    color: rgba(255,255,255,1) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+    color: #703520 !important;
+}
+
+#menu_logo{
+    height: 35px;
+}
+
+.dropdown-item:focus, .dropdown-item {
+	color: #703520 !important;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+	color: #703520 !important;
+	text-decoration: none;
+	background-color: #f7dacc !important;
+}
 
 /* Plantilla de bootstrap----------------------------------------------------------- */
 .jumbotron {
@@ -58,7 +81,7 @@ footer p {
 
 /*Start listado de recetas--------------------------------------------- */
 .receta_card:hover{
-    background-color: #f1ebe8;
+    
 }
 
 
@@ -85,13 +108,20 @@ img.emoji {
 }
 
 .rdr-tag {
+    text-decoration: none;
     font-size: 14px;
     color: #576673;
     display: inline-block;
     padding: .2em .8em;
     border-radius: 30px;
-    background-color: #dbdfdf;
+    background-color: #ebecec;
     margin: 0 .5em .5em 0;
+}
+
+.rdr-tag:hover {
+    background-color: #F5D69D;
+    color:rgb(90, 90, 90);
+    text-decoration: none;
 }
 
 #receta_valoracion{
@@ -286,5 +316,72 @@ img.emoji {
     color: #5c5c5c;
 }
 
+/*Formulario registro--------------------------------------------- */
 
+#form_registro{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #2C3032
+}
 
+#card_formulario{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #5c5c5c;
+    border-radius: 0px !important;
+    background-color: #f9f9f9;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    -ms-border-radius: 0px !important;
+    -o-border-radius: 0px !important;
+}
+
+#card_formulario legend{
+    color: #bd461b;
+    font-size: 30px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#card_formulario h3{
+    color: #bd461b;
+    font-size: 30px;
+}
+
+#card_formulario span{
+    color: #bd461b;
+
+}
+
+/*Formulario login---------------------------------------------------- */
+
+#form_login{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #2C3032
+}
+
+#msg_olvidar{
+    margin-left: auto;
+    margin-right: auto;
+    color: #bd461b;
+    font-weight: bold;
+
+}
+
+.message--error{
+    display: none;
+    border: red solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.message--error strong{
+    color: red;
+}
+
+.message--error p{
+    margin-bottom: 0px;
+}

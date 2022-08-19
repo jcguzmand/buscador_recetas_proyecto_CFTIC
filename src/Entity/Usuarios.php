@@ -65,13 +65,8 @@ class Usuarios
      */
     private $comentarios;
 
-     /**
-     * Bidirectional - Many usuarios have Many preguntas favoritas (OWNING SIDE)
-     *
-     * @ManyToMany(targetEntity="App\Entity\Recetas", inversedBy="usuarioFavoritas")
-     * @JoinTable(name="favoritas",
-     *      joinColumns={@JoinColumn(name="usuario_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="receta_id", referencedColumnName="id")})
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Favoritas", mappedBy="usuario")
      */
     private $favoritas;
 
@@ -106,7 +101,7 @@ class Usuarios
     }
 
     /**
-     * @return Collection|Recetas[]
+     * @return Collection|Favoritas[]
      */
     public function getFavoritas(): Collection
     {

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-6">
+				<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
+					<img src="img/logo_inverso.png" alt="Logotipo" height="50">
+				</a>
+				<div class="card" id="card_formulario">
+					<div class="card-body m-4">
+                        <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <h3 class="card-text mb-4">Registro completado</h3>
+                        </div>
+					</div>
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="mb-3"><b>Bienvenido, estamos encantados de que se haya unido a nosotros.</b></h5>
+                                <p>
+                                Gracias por unirse a <span>...y con esto que cocino</span>. A partir de ahora llevará su experiencia con nosotros más allá,
+                                y podrá compartir sus propias recetas con el resto de usuarios de internet. 
+                                </p>
+                                <p>
+                                Comience a explorar o revise los datos de su perfil.
+                                </p>
+                                <a class="btn btn-primary" href="{{ path('inicio') }}" role="button">Ir a inicio</a>
+                                <a class="btn btn-primary" href="#" role="button">Perfil</a>
+                                <p class="mt-4">
+                                Buen apetito.
+                                </p>
+                                <p>
+                                El equipo de <span>...y con esto que cocino</span>. 
+                                </p>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

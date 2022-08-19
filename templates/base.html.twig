@@ -22,31 +22,23 @@
 	<body>
 
 		<!-- Menú de navegación -->
-		{% if 1 == 1 %}
-			{{include('menus/menuAnonimos.html.twig')}}
-		{% else %}
-			{{include('menus/menuRegistrados.html.twig')}}
-		{% endif %}
-
+		{% block menu %}{% endblock %}
+		
 		<!-- Bloque buscador -->
 		{% block search %}{% endblock %}
 
-		<div class="album py-4 bg-light">
-			<div class="container">
-				<!-- Bloque contenido dinámico -->
-				{% block content %}{% endblock %}
-			</div>
-		</div>
+		<!-- Bloque contenido dinámico -->
+		{% block content %}{% endblock %}
+
 
 		<!-- Bloque pie de página -->
-		{% if 1 == 1 %}
-			{{include('elements/footer.html.twig')}}
-		{% endif %}
+		{% block footer %}{% endblock %}
 
 		<!-- App JS -->
 		<script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 		<script src="/libs/bootstrap4/bootstrap.bundle.min.js"></script>
 		<script src="/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+		<script src="/js/app.js"></script>
 		<!--Bloque JS personalizados-->
 		{% block javascripts %}{% endblock %}
 	</body>

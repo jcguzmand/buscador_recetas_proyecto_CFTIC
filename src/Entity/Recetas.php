@@ -125,11 +125,9 @@ class Recetas
     private $usuario;
 
     /**
-     * Bidirectional - Many recetas are favorited by many usuarios (INVERSE SIDE)
-     *
-     * @ManyToMany(targetEntity="Usuarios", mappedBy="favoritas")
+     * @ORM\OneToMany(targetEntity="App\Entity\Favoritas", mappedBy="receta")
      */
-    private $usuarioFavoritas;
+    private $favoritas;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="receta")
@@ -139,6 +137,7 @@ class Recetas
     public function __construct()
     {
         $this->comentarios = new ArrayCollection();
+        $this->favoritas = new ArrayCollection();
     }
 
     /**
@@ -147,6 +146,14 @@ class Recetas
     public function getComentarios(): Collection
     {
         return $this->comentarios;
+    }
+
+    /**
+     * @return Collection|Favoritas[]
+     */
+    public function getFavoritas(): Collection
+    {
+        return $this->favoritas;
     }
 
     public function getId(): ?int
