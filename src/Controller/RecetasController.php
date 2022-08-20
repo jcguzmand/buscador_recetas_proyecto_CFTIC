@@ -214,7 +214,7 @@ class RecetasController extends AbstractController
 
             //Configurar parámetros
             foreach ($searchValuesArray as $key => $searchValue) {
-                $query->setParameter('dato' . $key, '%' . $searchValues . '%');
+                $query->setParameter('dato' . $key, '%' . $searchValue . '%');
             }
             //Ejecutar la consulta
             $recetas = $query->getResult();
@@ -284,5 +284,32 @@ class RecetasController extends AbstractController
             'votosTotal'   => $votosTotal,
             'valMedia'      => $valMedia  
         ]);
+    }
+
+    #[Route('/usuario-recetas', name: 'listarRecetasUsuario')]
+    public function listarRecetasUsuario(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator)
+    {
+        //Obtener el usuario con la sesión activa
+        $usuario = $request->getSession()->get('usuario');
+        dump('$usuario Usuario con sesión activa en listarRecetasUsuario', $usuario);
+
+        //Crear consulta de recetas del usuario
+        $query = $em->getRepository(Recetas::class)->findByUsuario($usuario);
+        
+        //Configuración del paginador
+        $recetas = $paginator->paginate(
+            $query,
+            // Definir el parámetro de la página recogida por GET
+            $request->query->getInt('page', 1),
+            // Número de elementos por página
+            4
+        );
+        dump('$recetas Recetas del usuario con sesión activa en listarRecetasUsuario', $recetas);
+
+        //Retorno de la vista 
+        return $this->render('recetas/listaRecectasUser.html.twig', [
+            'recetas' => $recetas 
+        ]);
+
     }
 }

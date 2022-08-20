@@ -7,8 +7,7 @@
 				<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
 					<img src="img/logo_inverso.png" alt="Logotipo" height="50">
 				</a>
-				<div class="card" id="card_formulario">
-					<div class="card-body m-4">
+				<div class="card-box" id="card_formulario_registro">
 						<form action="{{ path('registrarUsuario') }}" method="POST" id="form_registro">
 							<fieldset>
 								<legend>Registrate</legend>
@@ -39,7 +38,6 @@
 								</div>
 							</fieldset>
 						</form>
-					</div>
 				</div>
                 <p class="align-center color-primary mt-4">Si tienes cuenta, 
                     <a href="{{ path('mostrarFormularioLogin') }}">

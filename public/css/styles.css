@@ -119,7 +119,7 @@ img.emoji {
 }
 
 .rdr-tag:hover {
-    background-color: #F5D69D;
+    background-color: #f7dbc1;
     color:rgb(90, 90, 90);
     text-decoration: none;
 }
@@ -318,23 +318,14 @@ img.emoji {
 
 /*Formulario registro--------------------------------------------- */
 
-#form_registro{
-    font-family: 'Nunito Sans', sans-serif;
-    color: #2C3032
-}
-
-#card_formulario{
+#card_formulario_registro{
     font-family: 'Nunito Sans', sans-serif;
     color: #5c5c5c;
     border-radius: 0px !important;
-    background-color: #f9f9f9;
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    -ms-border-radius: 0px !important;
-    -o-border-radius: 0px !important;
+    background-color: #f4f4f4;
 }
 
-#card_formulario legend{
+#card_formulario_registro legend{
     color: #bd461b;
     font-size: 30px;
     width: auto;
@@ -342,22 +333,22 @@ img.emoji {
     margin-right: auto;
 }
 
-#card_formulario h3{
-    color: #bd461b;
-    font-size: 30px;
-}
-
-#card_formulario span{
-    color: #bd461b;
-
-}
-
 /*Formulario login---------------------------------------------------- */
 
-#form_login{
+#card_formulario_login{
     font-family: 'Nunito Sans', sans-serif;
-    color: #2C3032
+    color: #5c5c5c;
+    background-color: #f4f4f4;
 }
+
+#card_formulario_login legend{
+    color: #bd461b;
+    font-size: 30px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 #msg_olvidar{
     margin-left: auto;
@@ -384,4 +375,34 @@ img.emoji {
 
 .message--error p{
     margin-bottom: 0px;
+}
+
+/*Listado de recetas del usuario---------------------------------------------------- */
+
+#table_recetas_user td{
+    vertical-align: middle;
+    color: #5c5c5c;
+}
+
+#table_recetas_user td{
+    vertical-align: middle;
+    color: #5c5c5c;
+}
+
+#table_recetas_user #celda_nombre{
+    min-width: 250px;
+}
+
+#card_list_recetas{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #5c5c5c;
+    background-color: #f4f4f4;
+}
+
+#card_list_recetas legend{
+    color: #bd461b;
+    font-size: 30px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -7,20 +7,17 @@
 				<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
 					<img src="img/logo_inverso.png" alt="Logotipo" height="50">
 				</a>
-				<div class="card" id="card_formulario">
-					<div class="card-body m-4">
-						<form action="{{ path('conectarUsuario') }}" method="POST" id="form_login">
-                        
+				<div class="card-box" id="card_formulario_login">
 
-                            <div class="message message--error mb-3">
-                                <p>
-                                    <strong>Tu identificación no se ha podido realizar.</strong>
-                                    Comprueba que has introducido tu correo electrónico y contraseña correctamente. Recuerda que debes respetar las mayúsculas y las minúsculas.       
-                                </p>
-							</div>
-
-
-							<fieldset>
+					<div class="message message--error mb-3">
+						<p>
+							<strong>Tu identificación no se ha podido realizar.</strong>
+							Comprueba que has introducido tu correo electrónico y contraseña correctamente. Recuerda que debes respetar las mayúsculas y las minúsculas.
+						</p>
+					</div>
+					
+					<form action="{{ path('conectarUsuario') }}" method="POST" id="form_login">
+						<fieldset>
 							<legend>Conéctate</legend>
 							<div class="form-group">
 								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Correo electrónico:</label>
@@ -43,18 +40,17 @@
 						</fieldset>
 					</form>
 				</div>
+				<p class="align-center color-primary mt-4">Si no tienes cuenta,
+					<a href="{{ path('mostrarFormularioRegistro') }}">
+						regístrate
+					</a>
+				</p>
 			</div>
-			<p class="align-center color-primary mt-4">Si no tienes cuenta,
-				<a href="{{ path('mostrarFormularioRegistro') }}">
-					regístrate
-				</a>
-			</p>
-		</div>
 
+		</div>
 	</div>
-</div>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="/js/login.js"></script>
+	<script src="/js/login.js"></script>
 {% endblock %}

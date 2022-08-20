@@ -48,7 +48,7 @@ class UsuariosController extends AbstractController
     }
 
     #[Route('/conectar', name: 'mostrarFormularioLogin')]
-    public function mostrarFormularioLogin(Request $request, EntityManagerInterface $em)
+    public function mostrarFormularioLogin()
     {
         return $this->render('usuarios/loginUsuario.html.twig');
     }
@@ -57,32 +57,53 @@ class UsuariosController extends AbstractController
     public function conectarUsuario(Request $request, EntityManagerInterface $em)
     {
         //Obtener credenciales de usuario del formulario
-        $email      = $request->request->get('email');
-        $password   = $request->request->get('password');
+        $email          = $request->request->get('email');
+        $password_Form  = $request->request->get('password');
 
-        if(1 == 1){
-            //Devolver datos en formato json 
-            return $this->json([
-                'resultado'   => false  
-        ]);
-
-        }else{
-            return $this->render('usuarios/loginUsuario.html.twig');
-        }
+        //Recuperar el usuario de la BD según el email introducido
+        $usuario = $em->getRepository(Usuarios::class)->findOneByEmail($email);
         
+        //Comprobar en primer lugar que el usuario existe
+        if($usuario){
+            //Recuperar la contraseña de la BD
+            $password_hash = $usuario->getPassword();
+
+            //Comprobar que pass del formulario y de la BD son iguales
+            if(password_verify($password_Form, $password_hash)){
+
+                //Iniciar sesión
+                $session = $request->getSession();
+                //Crear variables de sesión
+                $session->set('usuario', $usuario);
+
+                //Devolver resultado de login al método Ajax
+                return $this->json([
+                    'resultado' => true  
+                ]);
+
+            }else{
+                //Error de contraseña
+                return $this->json([
+                'resultado' => false  
+                ]);
+            }
+        }else{
+            //Error de usuario
+            return $this->json([
+                'resultado' => false  
+            ]);
+        } 
     }
 
+    #[Route('/desconectar', name: 'desconectarUsuario')]
+    public function desconectarUsuario(Request $request, EntityManagerInterface $em)
+    {
+        $session = $request->getSession();
+        $session->invalidate();
 
-
-
-
-
-
-
-
-
-
-
+        // redirects to the "inicio" route
+        return $this->redirectToRoute('inicio');
+    }
 
     #[Route('/detallesUsuario', name: 'detallesUsuario')]
     public function detallesUsuario(Request $request, EntityManagerInterface $em)

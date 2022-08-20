@@ -9,11 +9,13 @@
 {% endblock %}
 
 {% block menu %}
-	{% if 1 == 1 %}
-		{{include('elements/menus/menuAnonimos.html.twig')}}
-	{% else %}
+
+	{% if app.session.get('nombre') is defined %}
 		{{include('elements/menus/menuRegistrados.html.twig')}}
+	{% else %}
+		{{include('elements/menus/menuAnonimos.html.twig')}}
 	{% endif %}
+	
 {% endblock %}
 
 {% block content %}
