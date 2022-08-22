@@ -349,7 +349,6 @@ img.emoji {
     margin-right: auto;
 }
 
-
 #msg_olvidar{
     margin-left: auto;
     margin-right: auto;
@@ -405,4 +404,40 @@ img.emoji {
     width: auto;
     margin-left: auto;
     margin-right: auto;
+}
+
+/*Añadir recetas----------------------------------------------------------------------- */
+
+#card_add_recetas{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #5c5c5c;
+    background-color: #f4f4f4;
+}
+
+#card_add_recetas legend{
+    color: #bd461b;
+    font-size: 30px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#card_add_recetas label{
+    display: block;
+}
+
+#form_add_receta .bootstrap-tagsinput{
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: .25rem !important;
+    -webkit-border-radius: .25rem !important;
+    -moz-border-radius: .25rem !important;
+    -ms-border-radius: .25rem !important;
+    -o-border-radius: .25rem !important;
+    border-color: #ced4da !important;
+    padding: .6rem 1rem !important;
+}
+
+.fa-circle-info{
+    color:rgb(0, 96, 160);
 }

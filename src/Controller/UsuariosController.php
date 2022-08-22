@@ -43,7 +43,7 @@ class UsuariosController extends AbstractController
         //Guardar el usuario en la BD
         $em->getRepository(Usuarios::class)->add($usuario, true);
 
-        //Retorno la vista con los datos--------------------------------------------------------------
+        //Retorno la vista--------------------------------------------------------------
         return $this->render('usuarios/confirmRegistroUsuario.html.twig');
     }
 
@@ -96,7 +96,7 @@ class UsuariosController extends AbstractController
     }
 
     #[Route('/desconectar', name: 'desconectarUsuario')]
-    public function desconectarUsuario(Request $request, EntityManagerInterface $em)
+    public function desconectarUsuario(Request $request)
     {
         $session = $request->getSession();
         $session->invalidate();

@@ -9,6 +9,8 @@ use App\Entity\Recetas;
 use App\Entity\Categorias;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\HttpFoundation\JsonResponse;
 
 
@@ -310,6 +312,38 @@ class RecetasController extends AbstractController
         return $this->render('recetas/listaRecectasUser.html.twig', [
             'recetas' => $recetas 
         ]);
+    }
+
+    #[Route('/add-receta', name: 'mostrarFormAddReceta')]
+    public function mostrarFormAddReceta()
+    {
+        //Retorno la vista----------------------------------------------------------------------
+        return $this->render('recetas/addReceta.html.twig');
+    }
+
+    #[Route('/execute-add-receta', name: 'ejecutarAddReceta')]
+    public function ejecutarAddReceta(Request $request, EntityManagerInterface $em)
+    {
+        dump('$request, petición en inicio de ejecutarAddReceta', $request);
+
+        //Recuperar datos del formulario
+        $nombre = $request->request->get('nombre');
+
+        //Crear la receta y añadir los datos 
+        $receta = new Recetas;
+        $receta->setNombre($nombre);
+
+        //Guardar la receta en la BD
+        $em->getRepository(Recetas::class)->add($receta, true);
+
+        /* // redirects to the "usuario-recetas" route
+        return $this->redirectToRoute('listarRecetasUsuario'); */
+
+        //Retorno la vista----------------------------------------------------------------------
+        return $this->render('recetas/prueba.html.twig', [
+            'request' => $request
+        ]);
+
 
     }
 }

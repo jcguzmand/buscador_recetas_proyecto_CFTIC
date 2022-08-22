@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-12">
+				<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
+					<img src="img/logo_inverso.png" alt="Logotipo" height="50">
+				</a>
+				<div class="card-box" id="card_add_recetas">
+					<div class="row">
+						<div class="col">
+							<form action="{{ path('ejecutarAddReceta') }}" method="POST" id="form_add_receta">
+								<fieldset>
+									<legend>Añadir receta</legend>
+									<div class="form-group">
+										<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Nombre:</label>
+										<input class="form-control form-control-lg" type="text" placeholder="Nombre" id="nombre" name="nombre">
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="form-group">
+												<label class="col-form-label col-form-label-lg mt-3" for="addTags">Tags: 
+                                                    <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Los Tags son importantes a la hora de buscar las recetas.
+                                                        Introduce los ingredientes más importantes con los que deseas que sea localizada por los usuarios. 
+                                                        Es recomendable que cada Tag sea un nombre de ingrediente en singular. Al terminar de escribir una Tag pulsa intro y continua con el siguiente. Por favor, cuida la ortografía.">
+                                                    </i>
+                                                </label>
+												<input class="form-control form-control-lg" type="text" placeholder="Añade tags..." id="addTags" name="tags">
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-group">
+												<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Ingredientes: <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Introduce el nombre y las cantidades de cada ingrediente de tu receta. Despues de introducir cada ingrediente pulsa intro.
+                                                Ejemplo de ingrediente: '200 gr. de arroz'">
+                                                    </i></label>
+												<input class="form-control form-control-lg" type="text" placeholder="Añade ingredientes..." id="addIngredientes" name="ingredientes">
+											</div>
+										</div>
+									</div>
+
+									<div class="input-group mt-3">
+										<button type="submit" class="btn btn-primary mr-2 mt-2">
+											<b>Añadir</b>
+										</button>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+ 
+{% block javascripts %}
+	<script src="/js/add_recetas.js"></script>
+{% endblock %}
