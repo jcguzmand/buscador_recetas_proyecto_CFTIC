@@ -3,14 +3,16 @@ $(document).ready(function () {
 });
 
 function initSearchRecetas() {
-    $('#searchRecetas').tagsinput();
+    $('#searchRecetas').tagsinput({
+        focusClass: 'my-focus-class'
+    });
     $('#searchRecetas').off('itemAdded');
-    $('#searchRecetas').on('itemAdded', function(event) {
+    $('#searchRecetas').on('itemAdded', function (event) {
         var items = $(this).val();
         search(items);
     });
     $('#searchRecetas').off('itemRemoved');
-    $('#searchRecetas').on('itemRemoved', function(event) {
+    $('#searchRecetas').on('itemRemoved', function (event) {
         var items = $(this).val();
         search(items);
     });
@@ -36,3 +38,4 @@ function search(value) {
         }
     });
 }
+

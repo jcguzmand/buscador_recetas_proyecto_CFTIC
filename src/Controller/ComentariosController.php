@@ -20,10 +20,11 @@ class ComentariosController extends AbstractController
         $idReceta   = $request->request->get('idReceta');
 
         //Recuperar el id del usuario
-        //En el condicional poner si la variable de sesión está seteada
-        if(1 == 0){
-            //Sustituir esta parte por la recuperación del nombre de la sesión de usuario
-            $idUsuario = 2;
+        //Comprobar si existe la variable de sesión id
+        $session = $request->getSession();
+        if($existe = $session->has('id')){
+            //Recuperamos la variable de sesion con el id del usuario conectado
+            $idUsuario = $session->get('id');
         }else{
             //Si el usuario no está registrado será anónimo
             $idUsuario = 4;

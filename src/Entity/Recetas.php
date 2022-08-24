@@ -65,7 +65,7 @@ class Recetas
     /**
      * @var array|null
      *
-     * @ORM\Column(name="dificultad", type="simple_array", length=0, nullable=true)
+     * @ORM\Column(name="dificultad", type="string", length=255, nullable=true)
      */
     private $dificultad;
 
@@ -221,12 +221,12 @@ class Recetas
         return $this;
     }
 
-    public function getDificultad(): ?array
+    public function getDificultad(): ?string
     {
         return $this->dificultad;
     }
 
-    public function setDificultad(?array $dificultad): self
+    public function setDificultad(?string $dificultad): self
     {
         $this->dificultad = $dificultad;
 

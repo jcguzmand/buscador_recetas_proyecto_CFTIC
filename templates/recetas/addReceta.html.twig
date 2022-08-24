@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link href="/libs/summernote/summernote-bs4.css" rel="stylesheet" type="text/css"/>
+	<link href="/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
 {% block content %}
 	<div class="container mt-5">
 		<div class="row">
@@ -10,38 +15,101 @@
 				<div class="card-box" id="card_add_recetas">
 					<div class="row">
 						<div class="col">
-							<form action="{{ path('ejecutarAddReceta') }}" method="POST" id="form_add_receta">
+							<form action="{{ path('ejecutarAddReceta') }}" method="POST" id="form_add_receta" enctype="multipart/form-data">
 								<fieldset>
 									<legend>Añadir receta</legend>
 									<div class="form-group">
-										<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Nombre:</label>
+										<label class="col-form-label col-form-label-lg mt-3" for="nombre">Nombre:</label>
 										<input class="form-control form-control-lg" type="text" placeholder="Nombre" id="nombre" name="nombre">
 									</div>
-									<div class="row">
+
+
+									<div class="row mt-4">
 										<div class="col">
 											<div class="form-group">
-												<label class="col-form-label col-form-label-lg mt-3" for="addTags">Tags: 
-                                                    <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Los Tags son importantes a la hora de buscar las recetas.
-                                                        Introduce los ingredientes más importantes con los que deseas que sea localizada por los usuarios. 
-                                                        Es recomendable que cada Tag sea un nombre de ingrediente en singular. Al terminar de escribir una Tag pulsa intro y continua con el siguiente. Por favor, cuida la ortografía.">
-                                                    </i>
-                                                </label>
+												<label class="col-form-label col-form-label-lg mt-3" for="addTags">Tags:
+													<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Los Tags son importantes a la hora de buscar las recetas.
+																																																																																																																																																										Introduce los ingredientes más importantes con los que deseas que sea localizada por los usuarios.
+																																																																																																																																																										Es recomendable que cada Tag sea un nombre de ingrediente en singular. Al terminar de escribir una Tag pulsa intro y continua con el siguiente. Por favor, cuida la ortografía."></i>
+												</label>
 												<input class="form-control form-control-lg" type="text" placeholder="Añade tags..." id="addTags" name="tags">
 											</div>
 										</div>
 										<div class="col">
 											<div class="form-group">
-												<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Ingredientes: <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Introduce el nombre y las cantidades de cada ingrediente de tu receta. Despues de introducir cada ingrediente pulsa intro.
-                                                Ejemplo de ingrediente: '200 gr. de arroz'">
-                                                    </i></label>
+												<label class="col-form-label col-form-label-lg mt-3" for="addIngredientes">Ingredientes:
+													<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Introduce el nombre y las cantidades de cada ingrediente de tu receta. Despues de introducir cada ingrediente pulsa intro.
+																																																																																																																																																										Ejemplo de ingrediente: '200 gr. de arroz'"></i>
+												</label>
 												<input class="form-control form-control-lg" type="text" placeholder="Añade ingredientes..." id="addIngredientes" name="ingredientes">
 											</div>
 										</div>
 									</div>
 
-									<div class="input-group mt-3">
+
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<label class="col-form-label col-form-label-lg mt-3" for="customFile">Categoria:</label>
+											<select class="custom-select custom-select-lg" name="categoria">
+												<option selected>Selecciona una categoría...</option>
+
+
+
+												{% for cat in categorias %}
+													<option value="{{cat.nombre}}">{{cat.nombre}}</option>
+												{% endfor %}
+
+
+												
+
+
+											</select>
+										</div>
+									</div>
+
+
+									<div class="form-group mt-4">
+										<label for="addElaboracion" class="form-label col-form-label-lg mt-4">Elaboración:
+											<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Le recomendamos que utilice una lista ordenada para indicar los pasos de la receta. Tambien puede usar encabezados para organizar el texto."></i>
+										</label>
+										<textarea class="form-control form-control-lg summernote-input-air" id="addElaboracion" rows="5" name="elaboracion" placeholder="Elaboración..."></textarea>
+									</div>
+
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<label class="col-form-label col-form-label-lg mt-3" for="customFile">Imagen:
+												<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Seleccione una imagen en formato jpg. Las dimensiones recomendadas para una correcta visualización son de 800 x 550 pixeles"></i>
+											</label>
+											<div class="custom-file">
+												<input type="file" class="custom-file-input" id="customFile" name="imagen" accept="image/jpeg">
+												<label class="custom-file-label" for="customFile">Seleccione imagen en formato jpg...</label>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<label class="col-form-label col-form-label-lg mt-3" for="customFile">Dificultad:</label>
+											<select class="custom-select custom-select-lg" name="dificultad">
+												<option selected>Selecciona una opción...</option>
+												<option value="Fácil">Fácil</option>
+												<option value="Dificultad Media">Dificultad Media</option>
+												<option value="Difícil">Difícil</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="row mt-4 mb-4">
+										<div class="col-12 col-md-6">
+											<label class="col-form-label col-form-label-lg mt-3" for="tiempo">Tiempo de preparación:</label>
+											<input id="tiempo" type="text" value="0" name="tiempo" class="form-control input-lg">
+										</div>
+										<div class="col-12 col-md-6">
+											<label class="col-form-label col-form-label-lg mt-3" for="numPersonas">Nº personas:</label>
+											<input id="numPersonas" type="text" value="0" name="numPersonas" class="form-control input-lg">
+										</div>
+									</div>
+
+									<div class="input-group mt-5">
 										<button type="submit" class="btn btn-primary mr-2 mt-2">
-											<b>Añadir</b>
+											<b>Añadir receta</b>
 										</button>
 									</div>
 								</fieldset>
@@ -53,7 +121,10 @@
 		</div>
 	</div>
 {% endblock %}
- 
+
 {% block javascripts %}
 	<script src="/js/add_recetas.js"></script>
+	<script src="/libs/summernote/summernote-bs4.min.js"></script>
+	<script src="/libs/summernote/summernote-es-ES.min.js"></script>
+	<script src="/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 {% endblock %}

@@ -56,6 +56,16 @@ footer p {
     margin-bottom: .25rem;
 }
 
+#search .bootstrap-tagsinput{
+    line-height: 30px;
+}
+
+#search .focus{
+	border: 1px solid #f4ad94 !important;
+	outline: 0 !important;
+	box-shadow: 0 0 0 .3rem rgba(214, 73, 21, 0.25) !important;
+}
+
 /*Start Search----------------------------------------------------------- */
 
 #search{
@@ -226,6 +236,10 @@ img.emoji {
     margin-top: 10px;
 }
 
+#elaboracion{
+    
+}
+
 #elaboracion ol{
     list-style: none;
     counter-reset: li;
@@ -233,9 +247,10 @@ img.emoji {
 
 #elaboracion li{
     font-family: 'Nunito Sans', sans-serif;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-decoration: none;
-    color: #2C3032
+    color: #2C3032;
+    padding-bottom: 15px;
 }
 
 #elaboracion li:before {
@@ -255,11 +270,14 @@ img.emoji {
 
 #elaboracion h3{
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 20px;
+    font-size: 21px;
     margin-bottom: 20px;
-    color: #2C3032;
-    font-weight: 200;
+    color: #5d5d5d;
+    font-weight: bold;
+}
 
+#elaboracion ol li:not(:last-child) {
+	border-bottom: solid 1px #dfe8eb;
 }
 
 #comentarios ul{
@@ -314,6 +332,12 @@ img.emoji {
 #comentarios_form label{
     font-family: 'Nunito Sans', sans-serif;
     color: #5c5c5c;
+}
+
+#contenido_textarea{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #5b5b5b;
+    font-size: 16px;
 }
 
 /*Formulario registro--------------------------------------------- */
@@ -434,10 +458,48 @@ img.emoji {
     -moz-border-radius: .25rem !important;
     -ms-border-radius: .25rem !important;
     -o-border-radius: .25rem !important;
-    border-color: #ced4da !important;
+    border-color: #ced4da;
     padding: .6rem 1rem !important;
 }
 
 .fa-circle-info{
     color:rgb(0, 96, 160);
+}
+
+.dropdown-item{
+
+    color: black !important;
+}
+
+.my-focus-class {
+	color: #495057 !important;
+	background-color: #fff !important;
+	border-color: #f4ad94 !important;
+	outline: 0 !important;
+	box-shadow: 0 0 0 .2rem rgba(233,84,32,.25) !important;
+}
+
+.card-block:focus{
+    border: 1px solid #f4ad94 !important;
+}
+
+.custom-file-label::after {
+	content: "Seleccionar" !important;
+}
+
+.custom-file-label {
+	height: calc(1.5em + 1rem + 2px) !important;
+	padding-top: .5rem !important;
+	padding-bottom: .5rem !important;
+	padding-left: 1rem !important;
+	font-size: 1.25rem !important;
+    color: #757575 !important;
+}
+
+.custom-file-label::after {
+	height: calc(2em + .75rem)  !important;
+}
+
+.custom-select{
+    color: #757575 !important;
 }

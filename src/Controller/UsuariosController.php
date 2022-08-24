@@ -75,6 +75,7 @@ class UsuariosController extends AbstractController
                 $session = $request->getSession();
                 //Crear variables de sesión
                 $session->set('usuario', $usuario);
+                $session->set('id', $usuario->getId());
 
                 //Devolver resultado de login al método Ajax
                 return $this->json([

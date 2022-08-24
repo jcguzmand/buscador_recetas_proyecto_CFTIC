@@ -7,11 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Recetas;
 use App\Entity\Categorias;
+use App\Entity\Usuarios;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-//use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Utilidades\Utilidades;
 
 
 class RecetasController extends AbstractController
@@ -295,6 +294,8 @@ class RecetasController extends AbstractController
         $usuario = $request->getSession()->get('usuario');
         dump('$usuario Usuario con sesión activa en listarRecetasUsuario', $usuario);
 
+        $idUsuario = $usuario->getId();
+
         //Crear consulta de recetas del usuario
         $query = $em->getRepository(Recetas::class)->findByUsuario($usuario);
         
@@ -310,15 +311,21 @@ class RecetasController extends AbstractController
 
         //Retorno de la vista 
         return $this->render('recetas/listaRecectasUser.html.twig', [
-            'recetas' => $recetas 
+            'recetas' => $recetas
         ]);
     }
 
     #[Route('/add-receta', name: 'mostrarFormAddReceta')]
-    public function mostrarFormAddReceta()
+    public function mostrarFormAddReceta(Request $request, EntityManagerInterface $em)
     {
-        //Retorno la vista----------------------------------------------------------------------
-        return $this->render('recetas/addReceta.html.twig');
+        //Creación de la consulta de categorias para cargar en el select del menú
+        $categorias = $em->getRepository(Categorias::class)->findAll();
+        dump('$categorias', $categorias);
+
+        //Retorno la vista-----------------------------------------------------------------------------
+        return $this->render('recetas/addReceta.html.twig', [
+            'categorias' => $categorias
+        ]);
     }
 
     #[Route('/execute-add-receta', name: 'ejecutarAddReceta')]
@@ -327,23 +334,61 @@ class RecetasController extends AbstractController
         dump('$request, petición en inicio de ejecutarAddReceta', $request);
 
         //Recuperar datos del formulario
-        $nombre = $request->request->get('nombre');
+        $nombre         = $request->request->get('nombre');
+        $tags           = $request->request->get('tags');
+        $ingredientes   = $request->request->get('ingredientes');
+        $elaboracion    = $request->request->get('elaboracion');
+        $dificultad     = $request->request->get('dificultad');
+        $tiempo         = $request->request->get('tiempo');
+        $numPersonas    = $request->request->get('numPersonas');
+        $nombreCat      = $request->request->get('categoria');
+
+        //Recuperar el nombre del archivo de imagen-----------------------------------------------------------------
+        $imagen = $_FILES['imagen']['name'];
+        //Cambiamos el nombre de la imagen al del nombre de la receta limpiandolo antes de caracteres raros
+        $imagen = Utilidades::limpiar_archivo($nombre);
+        $imagen = strtolower($imagen) . ".jpg";
+    
+        dump('$_FILES, petición en inicio de ejecutarAddReceta', $_FILES);
+
+        //Copiar el archivo temporal en la ruta del proyecto en el servidor
+        copy($_FILES['imagen']['tmp_name'], "img/recetas/" . $imagen);
+        //Modificar el tamaño de la imagen subida al servidor y optimizar su tamaño
+        //Comento esta parte porque es necesario instalar la extension GD en PHP y puede dar problemas al subirlo al host
+        //Utilidades::optimizar_imagen($imagen, 800);
+
+        //Obtener la fecha actual-------------------------------------------------------------------------------------
+        $fecha = new \DateTime('now');
+
+        //Obtener el usuario con la sesión activa------------------------------------------------------------------
+        $session = $request->getSession();
+        $idUsuario = $session->get('id');
+
+        $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+        dump('$usuario, ejecutarAddReceta', $usuario);
+
+        //Obtener la categoria a partir del nombre----------------------------------------------------------------------------------------
+        $categoria = $em->getRepository(Categorias::class)->findOneByNombre($nombreCat);
 
         //Crear la receta y añadir los datos 
         $receta = new Recetas;
         $receta->setNombre($nombre);
+        $receta->setTags($tags);
+        $receta->setIngredientes($ingredientes);
+        $receta->setElaboracion($elaboracion);
+        $receta->setImagenUrl($imagen);
+        $receta->setDificultad($dificultad);
+        $receta->setTiempo($tiempo);
+        $receta->setNumPersonas($numPersonas);
+        $receta->setFechaCreacion($fecha);
+        $receta->setUsuario($usuario);
+        $receta->setCategoria($categoria);
 
         //Guardar la receta en la BD
         $em->getRepository(Recetas::class)->add($receta, true);
 
-        /* // redirects to the "usuario-recetas" route
-        return $this->redirectToRoute('listarRecetasUsuario'); */
-
-        //Retorno la vista----------------------------------------------------------------------
-        return $this->render('recetas/prueba.html.twig', [
-            'request' => $request
-        ]);
-
+        // redirects to the "usuario-recetas" route
+        return $this->redirectToRoute('listarRecetasUsuario');
 
     }
 }

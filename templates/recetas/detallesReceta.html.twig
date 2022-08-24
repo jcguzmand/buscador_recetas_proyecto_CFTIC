@@ -10,7 +10,7 @@
 
 {% block menu %}
 
-	{% if app.session.get('nombre') is defined %}
+	{% if app.session.get('usuario') %}
 		{{include('elements/menus/menuRegistrados.html.twig')}}
 	{% else %}
 		{{include('elements/menus/menuAnonimos.html.twig')}}
@@ -38,7 +38,7 @@
 										</span>
 									</div>
 									<div class="col-sm-auto">
-										<span class="rdr-tag">{{receta.dificultad[0]}}</span>
+										<span class="rdr-tag">{{receta.dificultad}}</span>
 									</div>
 									<div class="col-sm-auto">
 										<span class="rdr-tag">{{receta.tiempo}}
@@ -55,7 +55,7 @@
 									<div class="col-sm-12 mb-2">
 										<p class="rdr-author">Receta de
 											<a href="#">{{receta.usuario.nombre}}</a>
-											<img width="40" height="40" src="img/usuarios/hugo.jpg" class="rdr-avatar" alt="{{receta.usuario.nombre}} - Cocinero en yConEstoQueCocino" loading="lazy" sizes="(max-width: 40px) 100vw, 40px">
+											<img width="40" height="40" src="img/usuarios/hugo.jpg" class="rdr-avatar" alt="{{receta.usuario.nombre}} - Cocinero en y ConEstoQueCocino" loading="lazy" sizes="(max-width: 40px) 100vw, 40px">
 										</p>
 									</div>
 								</div>
