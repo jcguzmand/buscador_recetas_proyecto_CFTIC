@@ -32,7 +32,12 @@
 						<tbody>
 							{% for receta in recetas %}
 								<tr>
-									<td><img src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.Nombre }}" width="80"></td>
+									{% if receta.ImagenUrl is not empty %}
+										<td><img src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.Nombre }}" width="80"></td>
+									{% else %}
+										<td><img src="img/recetas/nofoto.jpg" alt="{{ receta.Nombre }}" width="80"></td>
+									{% endif %}
+
 									<td id="celda_nombre">{{ receta.nombre }}</td>
 									{% set valPromedio = (receta.valoracion and receta.numValoraciones ? receta.valoracion / receta.numValoraciones : 0) %}
 									<td>{{valPromedio|number_format(1, '.')}}/5</td>
@@ -42,10 +47,10 @@
 										<a href="{{ path('verDetalles', {id: receta.Id})}}" class="mr-1">
 											<i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver la receta"></i>
 										</a>
-										<a href="#" class="mr-1">
+										<a href="{{ path('mostrarFormEditReceta', {id: receta.Id}) }}" class="mr-1">
 											<i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Editar la receta"></i>
 										</a>
-										<a href="#" class="mr-1">
+										<a href="#" class="mr-1 eliminar-recetas-link" id="eliminar-recetas-link" data-receta-id = "{{ receta.id }}">
 											<i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Borrar la receta"></i>
 										</a>
 									</td>
@@ -61,4 +66,8 @@
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block javascripts %}
+	<script src="/js/list_recetas_user.js"></script>
 {% endblock %}

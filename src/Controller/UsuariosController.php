@@ -77,7 +77,7 @@ class UsuariosController extends AbstractController
                 $session->set('usuario', $usuario);
                 $session->set('id', $usuario->getId());
 
-                //Devolver resultado de login al método Ajax
+                //Devolver resultado OK de login al método Ajax
                 return $this->json([
                     'resultado' => true  
                 ]);

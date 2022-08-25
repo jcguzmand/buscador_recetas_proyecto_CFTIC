@@ -12,7 +12,8 @@ class Utilidades
         $buscar  = array(' ', '*', '!', '@', '?', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'í', 'ó', 'Ú', 'ñ', 'Ñ', 'Ü', 'ü', '¿', '¡');
         $reemplazar = array('-', '', '', '', '', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'n', 'N', 'U', 'u', '', '');
         $cadena = str_replace($buscar, $reemplazar, $cadena);
-        return $cadena;
+        $aleatorio = rand(0, 9999);
+        return $cadena . '-' . $aleatorio;
     }
 
     //Redimensionar el tamaño de las imagenes subidas al servidor a un ancho dado en los parámetros y optimizarlas

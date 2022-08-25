@@ -15,13 +15,13 @@
 				<div class="card-box" id="card_add_recetas">
 					<div class="row">
 						<div class="col">
-							<form action="{{ path('ejecutarAddReceta') }}" method="POST" id="form_add_receta" enctype="multipart/form-data">
+							<form action="{{ path('ejecutarEditReceta') }}" method="POST" id="form_add_receta" enctype="multipart/form-data">
 								<fieldset>
-									<legend>Añadir receta</legend>
-									
+									<legend>Editar receta</legend>
+
 									<div class="form-group">
 										<label class="col-form-label col-form-label-lg mt-3" for="nombre">Nombre:</label>
-										<input class="form-control form-control-lg" type="text" placeholder="Nombre" id="nombre" name="nombre">
+										<input class="form-control form-control-lg" type="text" placeholder="Nombre" id="nombre" name="nombre" value="{{ receta.nombre }}">
 									</div>
 
 									<div class="row mt-4">
@@ -29,19 +29,19 @@
 											<div class="form-group">
 												<label class="col-form-label col-form-label-lg mt-3" for="addTags">Tags:
 													<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Los Tags son importantes a la hora de buscar las recetas.
-																																																																																																																																																										Introduce los ingredientes más importantes con los que deseas que sea localizada por los usuarios.
-																																																																																																																																																										Es recomendable que cada Tag sea un nombre de ingrediente en singular. Al terminar de escribir una Tag pulsa intro y continua con el siguiente. Por favor, cuida la ortografía."></i>
+																																																																																																																																																																																																																		Introduce los ingredientes más importantes con los que deseas que sea localizada por los usuarios.
+																																																																																																																																																																																																																		Es recomendable que cada Tag sea un nombre de ingrediente en singular. Al terminar de escribir una Tag pulsa intro y continua con el siguiente. Por favor, cuida la ortografía."></i>
 												</label>
-												<input class="form-control form-control-lg" type="text" placeholder="Añade tags..." id="addTags" name="tags">
+												<input class="form-control form-control-lg" type="text" placeholder="Añade tags..." id="addTags" name="tags" value="{{ receta.tags }}">
 											</div>
 										</div>
 										<div class="col">
 											<div class="form-group">
 												<label class="col-form-label col-form-label-lg mt-3" for="addIngredientes">Ingredientes:
 													<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Introduce el nombre y las cantidades de cada ingrediente de tu receta. Despues de introducir cada ingrediente pulsa intro.
-																																																																																																																																																										Ejemplo de ingrediente: '200 gr. de arroz'"></i>
+																																																																																																																																																																																																																		Ejemplo de ingrediente: '200 gr. de arroz'"></i>
 												</label>
-												<input class="form-control form-control-lg" type="text" placeholder="Añade ingredientes..." id="addIngredientes" name="ingredientes">
+												<input class="form-control form-control-lg" type="text" placeholder="Añade ingredientes..." id="addIngredientes" name="ingredientes" value="{{ receta.ingredientes }}">
 											</div>
 										</div>
 									</div>
@@ -50,62 +50,77 @@
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="customFile">Categoria:</label>
 											<select class="custom-select custom-select-lg" name="categoria">
-												<option selected>Selecciona una categoría...</option>
-
 												{% for cat in categorias %}
-													<option value="{{cat.nombre}}">{{cat.nombre}}</option>
+													{% if cat.nombre == receta.categoria.nombre %}
+														<option value="{{cat.nombre}}" selected>{{cat.nombre}}</option>
+													{% else  %}
+														<option value="{{cat.nombre}}">{{cat.nombre}}</option>
+													{% endif  %}
 												{% endfor %}
-
 											</select>
 										</div>
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="customFile">Dificultad:</label>
 											<select class="custom-select custom-select-lg" name="dificultad">
 												<option selected>Selecciona una opción...</option>
-												<option value="Fácil">Fácil</option>
-												<option value="Dificultad Media">Dificultad Media</option>
-												<option value="Difícil">Difícil</option>
+												<option value="Fácil" {% if receta.dificultad == 'Fácil' %} selected {% endif %}>Fácil</option>
+												<option value="Dificultad Media" {% if receta.dificultad == 'Dificultad Media' %} selected {% endif %}>Dificultad Media</option>
+												<option value="Difícil" {% if receta.dificultad == 'Difícil' %} selected {% endif %}>Difícil</option>
 											</select>
 										</div>
 									</div>
-
 
 									<div class="form-group mt-4">
 										<label for="addElaboracion" class="form-label col-form-label-lg mt-4">Elaboración:
 											<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Le recomendamos que utilice una lista ordenada para indicar los pasos de la receta. Tambien puede usar encabezados para organizar el texto."></i>
 										</label>
-										<textarea class="form-control form-control-lg summernote-input-air" id="addElaboracion" rows="5" name="elaboracion" placeholder="Elaboración..."></textarea>
+										<textarea class="form-control form-control-lg summernote-input-air" id="addElaboracion" rows="5" name="elaboracion" placeholder="Elaboración...">{{ receta.elaboracion }}</textarea>
 									</div>
 
-									<div class="row">
+									<div class="row mt-5">
+
 										<div class="col-12 col-md-4">
-											<div class="col-sm-12"><img class="card-img-top" src="img/recetas/nofoto.jpg" alt="Imagen receta" id="img_receta_miniatura"></div>
+
+											{% if receta.ImagenUrl is not empty %}
+												<div class="col-sm-12"><img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.Nombre }}" id="img_receta_miniatura"></div>
+											{% else %}
+												<div class="col-sm-12"><img class="card-img-top" src="img/recetas/nofoto.jpg" alt="{{ receta.Nombre }}" id="img_receta_miniatura"></div>
+											{% endif %}
+
 										</div>
+
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="customFile">Imagen:
 												<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Seleccione una imagen en formato jpg. Las dimensiones recomendadas para una correcta visualización son de 800 x 550 pixeles"></i>
 											</label>
 											<div class="custom-file">
 												<input type="file" class="custom-file-input" id="customFile" name="imagen" accept="image/jpeg">
-												<label class="custom-file-label" for="customFile">Seleccione imagen en formato jpg...</label>
+
+												{% if receta.ImagenUrl is not empty %}
+													<label class="custom-file-label" for="customFile" id="img_label">{{ receta.imagenUrl }}</label>
+												{% else %}
+													<label class="custom-file-label" for="customFile" id="img_label">Seleccione imagen en formato jpg...</label>
+												{% endif %}
+
 											</div>
 										</div>
-										
+
 									</div>
 
 									<div class="row mt-4 mb-4">
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="tiempo">Tiempo de preparación:</label>
-											<input id="tiempo" type="text" value="0" name="tiempo" class="form-control input-lg">
+											<input id="tiempo" type="text" name="tiempo" class="form-control input-lg" value="{{ receta.tiempo }}">
 										</div>
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="numPersonas">Nº personas:</label>
-											<input id="numPersonas" type="text" value="0" name="numPersonas" class="form-control input-lg">
+											<input id="numPersonas" type="text" name="numPersonas" class="form-control input-lg" value="{{ receta.numPersonas }}">
 										</div>
 									</div>
 
 									<div class="input-group mt-5">
-										<button type="submit" class="btn btn-primary mr-2 mt-2">Añadir receta</button>
+										<input type="hidden" id="idReceta" name="idReceta" value="{{ receta.id }}">
+										<button type="submit" class="btn btn-primary mr-2 mt-2">Editar receta</button>
 										<a class="btn btn-primary mr-2 mt-2" href="{{ path('listarRecetasUsuario') }}" role="button">Cancelar</a>
 									</div>
 
@@ -120,7 +135,7 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="/js/add_recetas.js"></script>
+	<script src="/js/edit_recetas.js"></script>
 	<script src="/libs/summernote/summernote-bs4.min.js"></script>
 	<script src="/libs/summernote/summernote-es-ES.min.js"></script>
 	<script src="/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>

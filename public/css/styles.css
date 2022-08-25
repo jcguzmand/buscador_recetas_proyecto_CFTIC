@@ -236,8 +236,10 @@ img.emoji {
     margin-top: 10px;
 }
 
-#elaboracion{
-    
+#elaboracion p{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #2C3032;
+    font-size: 16px;
 }
 
 #elaboracion ol{
@@ -502,4 +504,30 @@ img.emoji {
 
 .custom-select{
     color: #757575 !important;
+}
+
+/*Editar recetas----------------------------------------------------------------------- */
+
+#img_receta_miniatura{
+    border: 1px solid rgb(204, 204, 204);
+    padding: 3px;
+}
+
+/*Errores de validacion de campos de formularios---------------------------------------- */
+
+label.error {
+    color: red;
+    font-size: 1rem;
+    display: block;
+    margin-top: 5px;
+}
+
+label.error::before {
+    content: "❌ ";
+  }
+
+input.error {
+    border: 2px dotted red;
+    font-weight: 300;
+    color: red;
 }

@@ -343,20 +343,6 @@ class RecetasController extends AbstractController
         $numPersonas    = $request->request->get('numPersonas');
         $nombreCat      = $request->request->get('categoria');
 
-        //Recuperar el nombre del archivo de imagen-----------------------------------------------------------------
-        $imagen = $_FILES['imagen']['name'];
-        //Cambiamos el nombre de la imagen al del nombre de la receta limpiandolo antes de caracteres raros
-        $imagen = Utilidades::limpiar_archivo($nombre);
-        $imagen = strtolower($imagen) . ".jpg";
-    
-        dump('$_FILES, petición en inicio de ejecutarAddReceta', $_FILES);
-
-        //Copiar el archivo temporal en la ruta del proyecto en el servidor
-        copy($_FILES['imagen']['tmp_name'], "img/recetas/" . $imagen);
-        //Modificar el tamaño de la imagen subida al servidor y optimizar su tamaño
-        //Comento esta parte porque es necesario instalar la extension GD en PHP y puede dar problemas al subirlo al host
-        //Utilidades::optimizar_imagen($imagen, 800);
-
         //Obtener la fecha actual-------------------------------------------------------------------------------------
         $fecha = new \DateTime('now');
 
@@ -376,7 +362,6 @@ class RecetasController extends AbstractController
         $receta->setTags($tags);
         $receta->setIngredientes($ingredientes);
         $receta->setElaboracion($elaboracion);
-        $receta->setImagenUrl($imagen);
         $receta->setDificultad($dificultad);
         $receta->setTiempo($tiempo);
         $receta->setNumPersonas($numPersonas);
@@ -384,11 +369,111 @@ class RecetasController extends AbstractController
         $receta->setUsuario($usuario);
         $receta->setCategoria($categoria);
 
+        //Tratamiento de la imagen para que no de error si no se cambia
+        if(!empty($imagen = $_FILES['imagen']['name'])){
+            //Recuperar el nombre del archivo de imagen-----------------------------------------------------------------
+            $imagen = $_FILES['imagen']['name'];
+            //Cambiamos el nombre de la imagen al del nombre de la receta limpiandolo antes de caracteres raros
+            $imagen = Utilidades::limpiar_archivo($nombre);
+            $imagen = strtolower($imagen) . ".jpg";
+            //Copiar el archivo temporal en la ruta del proyecto en el servidor
+            copy($_FILES['imagen']['tmp_name'], "img/recetas/" . $imagen);
+
+            //Guardamos la ruta en la receta
+            $receta->setImagenUrl($imagen);
+        }
+
         //Guardar la receta en la BD
         $em->getRepository(Recetas::class)->add($receta, true);
 
         // redirects to the "usuario-recetas" route
         return $this->redirectToRoute('listarRecetasUsuario');
+    }
 
+    #[Route('/edit-receta', name: 'mostrarFormEditReceta')]
+    public function mostrarFormEditReceta(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener el id de la receta a editar
+        $idReceta = $request->query->get('id');
+        //Obtener la receta
+        $receta = $em->getRepository(Recetas::class)->find($idReceta);
+        dump('$receta', $receta);
+
+        //Recuperar las categorias para cargar en el select del menú
+        $categorias = $em->getRepository(Categorias::class)->findAll();
+        dump('$categorias', $categorias);
+
+        //Retorno la vista-----------------------------------------------------------------------------
+        return $this->render('recetas/editReceta.html.twig', [
+            'categorias'    => $categorias,
+            'receta'        => $receta
+        ]);
+    }
+
+    #[Route('/execute-edit-receta', name: 'ejecutarEditReceta')]
+    public function ejecutarEditReceta(Request $request, EntityManagerInterface $em)
+    {
+        dump('$request, petición en inicio de ejecutarAddReceta', $request);
+
+        //Recuperar datos del formulario
+        $idReceta       = $request->request->get('idReceta');
+        $nombre         = $request->request->get('nombre');
+        $tags           = $request->request->get('tags');
+        $ingredientes   = $request->request->get('ingredientes');
+        $elaboracion    = $request->request->get('elaboracion');
+        $dificultad     = $request->request->get('dificultad');
+        $tiempo         = $request->request->get('tiempo');
+        $numPersonas    = $request->request->get('numPersonas');
+        $nombreCat      = $request->request->get('categoria');
+   
+        //Obtener la categoria a partir del nombre----------------------------------------------------------------------------------------
+        $categoria = $em->getRepository(Categorias::class)->findOneByNombre($nombreCat);
+
+        //Crear la receta y añadir los datos 
+        $receta = $em->getRepository(Recetas::class)->find($idReceta);
+        $receta->setNombre($nombre);
+        $receta->setTags($tags);
+        $receta->setIngredientes($ingredientes);
+        $receta->setElaboracion($elaboracion);
+        $receta->setDificultad($dificultad);
+        $receta->setTiempo($tiempo);
+        $receta->setNumPersonas($numPersonas);
+        $receta->setCategoria($categoria);
+
+        //Tratamiento de la imagen para que no de error si no se cambia
+        if(!empty($imagen = $_FILES['imagen']['name'])){
+            //Recuperar el nombre del archivo de imagen-----------------------------------------------------------------
+            $imagen = $_FILES['imagen']['name'];
+            //Cambiamos el nombre de la imagen al del nombre de la receta limpiandolo antes de caracteres raros
+            $imagen = Utilidades::limpiar_archivo($nombre);
+            $imagen = strtolower($imagen) . ".jpg";
+            //Copiar el archivo temporal en la ruta del proyecto en el servidor
+            copy($_FILES['imagen']['tmp_name'], "img/recetas/" . $imagen);
+
+            //Guardamos la ruta en la receta
+            $receta->setImagenUrl($imagen);
+        }
+
+        //Guardar la receta en la BD
+        $em->getRepository(Recetas::class)->add($receta, true);
+
+        // redirects to the "usuario-recetas" route
+        return $this->redirectToRoute('listarRecetasUsuario');
+    }
+
+    #[Route('/delete-receta', name: 'borrarReceta')]
+    public function borrarReceta(Request $request, EntityManagerInterface $em)
+    {   
+        //Obtener la id de receta de la petición GET
+        $idReceta = $request->request->get('idReceta');
+        //Obtener la receta   
+        $receta = $em->getRepository(Recetas::class)->find($idReceta);
+        //Borrar la receta
+        $em->getRepository(Recetas::class)->remove($receta, true);
+
+        //Devolver datos en formato json 
+        return $this->json([
+            'mensaje'   => 'La receta se ha borrado correctamente'
+        ]);
     }
 }

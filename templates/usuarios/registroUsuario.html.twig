@@ -8,44 +8,46 @@
 					<img src="img/logo_inverso.png" alt="Logotipo" height="50">
 				</a>
 				<div class="card-box" id="card_formulario_registro">
-						<form action="{{ path('registrarUsuario') }}" method="POST" id="form_registro">
-							<fieldset>
-								<legend>Registrate</legend>
-								<div class="form-group">
-									<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Nombre:</label>
-									<input class="form-control form-control-lg" type="text" placeholder="Nombre" id="inputLarge" name="nombre">
-								</div>
-								<div class="form-group">
-									<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Correo electrónico:</label>
-									<input class="form-control form-control-lg" type="email" placeholder="Correo electrónico" id="inputLarge" name="email">
-								</div>
-								<div class="form-group">
-									<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Contraseña:</label>
-									<input class="form-control form-control-lg" type="password" placeholder="Contraseña" id="inputLarge" name="password">
-								</div>
-								<div class="form-check mt-5">
-									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-									<label class="form-check-label" for="flexCheckDefault">
-										<p>He leido y entiendo la
-											<a href="#" target="_blank">Política de Privacidad</a>
-										</p>
-									</label>
-								</div>
-								<div class="input-group mt-3">
-									<button type="submit" class="btn btn-primary mr-2 mt-2">
-										<b>Registrar</b>
-									</button>
-								</div>
-							</fieldset>
-						</form>
+					<form action="{{ path('registrarUsuario') }}" method="POST" id="form_registro">
+						<fieldset>
+							<legend>Registrate</legend>
+							<div class="form-group">
+								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Nombre:</label>
+								<input class="form-control form-control-lg" type="text" placeholder="Nombre" id="nombre" name="nombre">
+							</div>
+							<div class="form-group">
+								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Correo electrónico:</label>
+								<input class="form-control form-control-lg" type="email" placeholder="Correo electrónico" id="email" name="email">
+							</div>
+							<div class="form-group">
+								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Contraseña:</label>
+								<input class="form-control form-control-lg" type="password" placeholder="Contraseña" id="password" name="password">
+							</div>
+							<div class="custom-control custom-checkbox">
+								<label class="custom-control-label" for="flexCheckDefault">
+									He leido y entiendo la <a href="#" target="_blank">Política de Privacidad</a>
+								</label>
+								<input class="custom-control-input" type="checkbox" value="" id="politicasPriv" name="politicasPriv">
+							</div>
+							<div class="input-group mt-3">
+								<button type="submit" class="btn btn-primary mr-2 mt-2" value="Validate!">
+									<b>Registrar</b>
+								</button>
+							</div>
+						</fieldset>
+					</form>
 				</div>
-                <p class="align-center color-primary mt-4">Si tienes cuenta, 
-                    <a href="{{ path('mostrarFormularioLogin') }}">
-                        conéctate
-                    </a>
-                </p>
+				<p class="align-center color-primary mt-4">Si tienes cuenta,
+					<a href="{{ path('mostrarFormularioLogin') }}">
+						conéctate
+					</a>
+				</p>
 			</div>
 
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="/js/registroUsuario.js"></script>
 {% endblock %}
