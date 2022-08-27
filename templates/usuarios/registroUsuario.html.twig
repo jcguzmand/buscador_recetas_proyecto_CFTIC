@@ -8,13 +8,21 @@
 					<img src="img/logo_inverso.png" alt="Logotipo" height="50">
 				</a>
 				<div class="card-box" id="card_formulario_registro">
+
+					<div class="message message--error mb-3">
+						<p>
+							<strong>El nombre introducido ya existe en nuestro sistema.</strong>
+							Por favor, introduce otro nombre y recuerda que el nombre puede contener cualquier caracter alfanúmerico.
+						</p>
+					</div>
+
 					<form action="{{ path('registrarUsuario') }}" method="POST" id="form_registro">
 						<fieldset>
 							<legend>Registrate</legend>
 							<div class="form-group">
 								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Nombre:</label>
 								<input class="form-control form-control-lg" type="text" placeholder="Nombre" id="nombre" name="nombre">
-							</div>
+								<label id="custom-nombre-error" class="error" for="" style="">Por favor, introduzca un nombre</label>
 							<div class="form-group">
 								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Correo electrónico:</label>
 								<input class="form-control form-control-lg" type="email" placeholder="Correo electrónico" id="email" name="email">
@@ -23,14 +31,16 @@
 								<label class="col-form-label col-form-label-lg mt-3" for="inputLarge">Contraseña:</label>
 								<input class="form-control form-control-lg" type="password" placeholder="Contraseña" id="password" name="password">
 							</div>
-							<div class="custom-control custom-checkbox">
-								<label class="custom-control-label" for="flexCheckDefault">
-									He leido y entiendo la <a href="#" target="_blank">Política de Privacidad</a>
+							<div class="custom-control custom-checkbox mt-4">
+								<input type="checkbox" class="custom-control-input" id="customCheck1" name="politicasPriv">
+								<label class="custom-control-label" for="customCheck1">
+									He leido y entiendo la
+									<a href="#" target="_blank">Política de Privacidad</a>
 								</label>
-								<input class="custom-control-input" type="checkbox" value="" id="politicasPriv" name="politicasPriv">
 							</div>
+
 							<div class="input-group mt-3">
-								<button type="submit" class="btn btn-primary mr-2 mt-2" value="Validate!">
+								<button type="submit" class="btn btn-primary mr-2 mt-2" value="Validate!" id="btn_submit_registro">
 									<b>Registrar</b>
 								</button>
 							</div>

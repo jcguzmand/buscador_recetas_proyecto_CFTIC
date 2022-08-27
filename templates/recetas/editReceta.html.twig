@@ -26,22 +26,24 @@
 
 									<div class="row mt-4">
 										<div class="col">
-											<div class="form-group">
+											<div class="form-group form-group-tags">
 												<label class="col-form-label col-form-label-lg mt-3" for="addTags">Tags:
 													<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Los Tags son importantes a la hora de buscar las recetas.
 																																																																																																																																																																																																																		Introduce los ingredientes más importantes con los que deseas que sea localizada por los usuarios.
 																																																																																																																																																																																																																		Es recomendable que cada Tag sea un nombre de ingrediente en singular. Al terminar de escribir una Tag pulsa intro y continua con el siguiente. Por favor, cuida la ortografía."></i>
 												</label>
 												<input class="form-control form-control-lg" type="text" placeholder="Añade tags..." id="addTags" name="tags" value="{{ receta.tags }}">
+												<label id="custom-tags-error" class="error" for="" ></label>
 											</div>
 										</div>
 										<div class="col">
-											<div class="form-group">
+											<div class="form-group form-group-ingredientes">
 												<label class="col-form-label col-form-label-lg mt-3" for="addIngredientes">Ingredientes:
 													<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Introduce el nombre y las cantidades de cada ingrediente de tu receta. Despues de introducir cada ingrediente pulsa intro.
 																																																																																																																																																																																																																		Ejemplo de ingrediente: '200 gr. de arroz'"></i>
 												</label>
 												<input class="form-control form-control-lg" type="text" placeholder="Añade ingredientes..." id="addIngredientes" name="ingredientes" value="{{ receta.ingredientes }}">
+												<label id="custom-ingredientes-error" class="error" for="" ></label>
 											</div>
 										</div>
 									</div>
@@ -62,7 +64,6 @@
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="customFile">Dificultad:</label>
 											<select class="custom-select custom-select-lg" name="dificultad">
-												<option selected>Selecciona una opción...</option>
 												<option value="Fácil" {% if receta.dificultad == 'Fácil' %} selected {% endif %}>Fácil</option>
 												<option value="Dificultad Media" {% if receta.dificultad == 'Dificultad Media' %} selected {% endif %}>Dificultad Media</option>
 												<option value="Difícil" {% if receta.dificultad == 'Difícil' %} selected {% endif %}>Difícil</option>
@@ -75,6 +76,7 @@
 											<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Le recomendamos que utilice una lista ordenada para indicar los pasos de la receta. Tambien puede usar encabezados para organizar el texto."></i>
 										</label>
 										<textarea class="form-control form-control-lg summernote-input-air" id="addElaboracion" rows="5" name="elaboracion" placeholder="Elaboración...">{{ receta.elaboracion }}</textarea>
+										<label id="custom-elaboracion-error" class="error" for="" ></label>
 									</div>
 
 									<div class="row mt-5">
@@ -111,10 +113,12 @@
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="tiempo">Tiempo de preparación:</label>
 											<input id="tiempo" type="text" name="tiempo" class="form-control input-lg" value="{{ receta.tiempo }}">
+											<label id="custom-tiempo-error" class="error" for="" ></label>
 										</div>
 										<div class="col-12 col-md-6">
 											<label class="col-form-label col-form-label-lg mt-3" for="numPersonas">Nº personas:</label>
 											<input id="numPersonas" type="text" name="numPersonas" class="form-control input-lg" value="{{ receta.numPersonas }}">
+											<label id="custom-numPersonas-error" class="error" for="" ></label>
 										</div>
 									</div>
 

@@ -23,7 +23,7 @@ class RecetasController extends AbstractController
         //Consulta de recetas por valoración
         $query = $em->createQuery(
             'SELECT r FROM App\Entity\Recetas r 
-                ORDER BY r.valoracion DESC'
+                ORDER BY r.valoracionMedia DESC'
         );
         //Establecer el limit de la consulta, max 9 registros
         $query->setFirstResult(0);
@@ -274,16 +274,20 @@ class RecetasController extends AbstractController
         $votosTotal = $votosActual + 1;
         $receta->setNumValoraciones($votosTotal);
 
+        //Calcula la valoración media
+        $valMedia = $valTotal / $votosTotal;
+        $receta->setvaloracionMedia($valMedia);
+
         //Guardar la receta modificada en la BD
         $em->getRepository(Recetas::class)->add($receta, true);
 
-        //Calcula el promedio de valoracion por voto
+        //Formatear la valoración media para mostrar en vista
         $valMedia = number_format($valTotal / $votosTotal, 1, '.', '');
         
         //Devolver datos en formato json 
         return $this->json([
             'votosTotal'   => $votosTotal,
-            'valMedia'      => $valMedia  
+            'valMedia'     => $valMedia  
         ]);
     }
 
@@ -368,6 +372,9 @@ class RecetasController extends AbstractController
         $receta->setFechaCreacion($fecha);
         $receta->setUsuario($usuario);
         $receta->setCategoria($categoria);
+        $receta->setValoracion(0);
+        $receta->setNumValoraciones(0);
+        $receta->setvaloracionMedia(0);
 
         //Tratamiento de la imagen para que no de error si no se cambia
         if(!empty($imagen = $_FILES['imagen']['name'])){

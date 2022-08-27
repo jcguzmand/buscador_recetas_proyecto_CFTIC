@@ -104,6 +104,13 @@ class Recetas
      */
     private $numValoraciones;
 
+     /**
+     * @var float|null
+     *
+     * @ORM\Column(name="valoracion_media", type="float", precision=2, scale=1, nullable=true)
+     */
+    private $valoracionMedia;
+
     /**
      * @var \Categorias|null
      *
@@ -289,6 +296,18 @@ class Recetas
     public function setNumValoraciones(?int $numValoraciones): self
     {
         $this->numValoraciones = $numValoraciones;
+
+        return $this;
+    }
+
+    public function getvaloracionMedia(): ?float
+    {
+        return $this->valoracionMedia;
+    }
+
+    public function setvaloracionMedia(?float $valoracionMedia): self
+    {
+        $this->valoracionMedia = $valoracionMedia;
 
         return $this;
     }

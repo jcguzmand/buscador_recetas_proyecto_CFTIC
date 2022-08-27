@@ -17,14 +17,14 @@ class UsuariosController extends AbstractController
         return $this->render('usuarios/registroUsuario.html.twig');
     }
 
-    #[Route('/welcome', name: 'registrarUsuario')]
+    #[Route('/execute-register', name: 'registrarUsuario')]
     public function registrarUsuario(Request $request, EntityManagerInterface $em)
     {
         //Obtener datos de usuario del formulario
         $nombre     = $request->request->get('nombre');
         $email      = $request->request->get('email');
         $password   = $request->request->get('password');
-
+        
         //Hashear el password usando una constante como semilla
         $password   = password_hash($password, PASSWORD_DEFAULT);
         //Obteber la url de la imagen por defecto
@@ -43,8 +43,32 @@ class UsuariosController extends AbstractController
         //Guardar el usuario en la BD
         $em->getRepository(Usuarios::class)->add($usuario, true);
 
-        //Retorno la vista--------------------------------------------------------------
+        //Devolver la vista de bienvenida
         return $this->render('usuarios/confirmRegistroUsuario.html.twig');
+    }
+
+    #[Route('/comprobar_nombre_user', name: 'comprobarNombre')]
+    public function comprobarNombre(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener nombre del formulario
+        $nombre = $request->request->get('nombre');
+        
+        $usuarios = $em->getRepository(Usuarios::class)->findAll();
+        
+        //Comprobar que el nombre de usuario introducido no existe en la BD
+        foreach ($usuarios as $usuario) {
+            if (strtolower($usuario->getNombre()) == strtolower($nombre)) {
+                //Si existe un nombre igual devolvemos salimos del método y devolvemos false 
+                return $this->json([
+                    'resultado' => false  
+                ]);  
+            }
+        }
+
+        //Si el nombre no existe devolvemos true
+        return $this->json([
+            'resultado' => true  
+        ]);  
     }
 
     #[Route('/conectar', name: 'mostrarFormularioLogin')]

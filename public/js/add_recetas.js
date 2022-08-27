@@ -6,6 +6,10 @@ $(document).ready(function () {
     initInputTiempoPrep();
     initInputNumPersonas();
     initChangeImagenMiniatura();
+
+    initValidacionFormJqueryValidate();
+    initvalidacionSubmit();
+    initvalidacionInputEventos();
 });
 
 function initAddTags() {
@@ -127,3 +131,141 @@ function initChangeImagenMiniatura() {
         }
     });
 }
+
+function initValidacionFormJqueryValidate() {
+
+    $("#form_add_receta").validate({
+        rules: {
+            nombre: {
+                required: true
+            },
+            categoria: {
+                required: true
+            },
+            dificultad: {
+                required: true
+            },
+            imagen: {
+                required: true
+            }
+        },
+        messages: {
+            nombre: {
+                required: "Por favor, introduzca un nombre"
+            },
+            categoria: {
+                required: "Por favor, seleccione una categoría"
+            },
+            dificultad: {
+                required: "Por favor, seleccione el nivel de dificultad"
+            },
+            imagen: {
+                required: "Por favor, seleccione una imagen"
+            }
+        }
+    });
+}
+
+function initvalidacionSubmit() {
+    $('#form_add_receta').on('submit', function (event) {
+        event.preventDefault();
+        if($(".form-group-tags .bootstrap-tagsinput span").length == 0){
+            $("#custom-tags-error").show();
+            $('#custom-tags-error').text('Por favor, introduzca los tags de búsqueda');
+            tags = false;
+        }else{
+            tags = true;
+        }
+
+        if($(".form-group-ingredientes .bootstrap-tagsinput span").length == 0){
+            $("#custom-ingredientes-error").show();
+            $('#custom-ingredientes-error').text('Por favor, introduzca los tags de búsqueda');
+            ingredientes = false;
+        }else{
+            ingredientes = true;
+        }
+        
+        if($(".note-editable br").length == 1 && $(".note-editable > p").text() == "" ){
+            $("#custom-elaboracion-error").show();
+            $('#custom-elaboracion-error').text('Por favor, introduzca la elaboración');
+            elaboracion = false;
+        }else{
+            elaboracion = true;
+        }
+        
+
+        if($("#tiempo").val() == '0'){
+            $("#custom-tiempo-error").show();
+            $('#custom-tiempo-error').text('Por favor, introduzca el tiempo de preparación');
+            tiempo = false;
+        }else{
+            tiempo = true;
+        }
+        
+
+        if($("#numPersonas").val() == '0'){
+            $("#custom-numPersonas-error").show();
+            $('#custom-numPersonas-error').text('Por favor, introduzca el número de comensales');
+            numPersonas = false;
+        }else{
+            numPersonas = true;
+        }
+        
+        if(tags && ingredientes && elaboracion && tiempo && numPersonas){
+            $('#form_add_receta').unbind('submit').submit();
+        }
+    });
+}
+
+function initvalidacionInputEventos() {
+    $('.form-group-tags .bootstrap-tagsinput').on('focusout', function (event) {
+        if($(".form-group-tags .bootstrap-tagsinput span").length == 0){
+            $("#custom-tags-error").show();
+            $('#custom-tags-error').text('Por favor, introduzca los ingredientes');
+        }else{
+            $("#custom-tags-error").hide();
+        }
+    });
+
+
+    $('.form-group-ingredientes .bootstrap-tagsinput').on('focusout', function (event) {
+        if($(".form-group-ingredientes .bootstrap-tagsinput span").length == 0){
+            $("#custom-ingredientes-error").show();
+            $('#custom-ingredientes-error').text('Por favor, introduzca los ingredientes');
+        }else{
+            $("#custom-ingredientes-error").hide();
+        }
+    });
+
+    $('.note-editable').on('focusout', function (event) {
+        if($(".note-editable br").length == 1 && $(".note-editable > p").text() == "" ){
+            $("#custom-elaboracion-error").show();
+            $('#custom-elaboracion-error').text('Por favor, introduzca la elaboración');
+            console.log($(".note-editable br").length);     
+        }else{
+            $("#custom-elaboracion-error").hide();
+            console.log($(".note-editable br").length);
+        }
+    });
+
+    $('.form-group-tiempo span').on('click', function (event) {
+        if($("#tiempo").val() == '0'){
+            $("#custom-tiempo-error").show();
+            $('#custom-tiempo-error').text('Por favor, introduzca el tiempo de preparación');
+        }else{
+            $("#custom-tiempo-error").hide();
+        }
+    });
+
+    $('.form-group-numPersonas span').on('click', function (event) {
+        if($("#numPersonas").val() == '0'){
+            $("#custom-numPersonas-error").show();
+            $('#custom-numPersonas-error').text('Por favor, introduzca el número de comensales');
+        }else{
+            $("#custom-numPersonas-error").hide();
+        }
+    });
+
+}
+
+

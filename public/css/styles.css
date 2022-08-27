@@ -359,6 +359,10 @@ img.emoji {
     margin-right: auto;
 }
 
+#custom-nombre-error{
+    display: none;
+}
+
 /*Formulario login---------------------------------------------------- */
 
 #card_formulario_login{
@@ -448,10 +452,6 @@ img.emoji {
     margin-right: auto;
 }
 
-#card_add_recetas label{
-    display: block;
-}
-
 #form_add_receta .bootstrap-tagsinput{
     max-width: 100% !important;
     width: 100% !important;
@@ -506,6 +506,26 @@ img.emoji {
     color: #757575 !important;
 }
 
+#custom-tags-error{
+    display: none;
+}
+
+#custom-ingredientes-error{
+    display: none;
+}
+
+#custom-elaboracion-error{
+    display: none;
+}
+
+#custom-tiempo-error, #custom-numPersonas-error{
+    display: none;
+}
+
+#customFile-error{
+    margin-top: 15px !important;
+}
+
 /*Editar recetas----------------------------------------------------------------------- */
 
 #img_receta_miniatura{
@@ -531,3 +551,4 @@ input.error {
     font-weight: 300;
     color: red;
 }
+
