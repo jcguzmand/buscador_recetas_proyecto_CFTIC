@@ -4,7 +4,7 @@ namespace App\Utilidades;
 
 class Utilidades
 {
-    const IMG_DEFECTO       = 'img/avatarAnonimo.jpg';
+    const IMG_DEFECTO       = 'avatarAnonimo.jpg';
 
     //Limpia caracteres raros en el nombre de los archivos
     public static function limpiar_archivo($cadena)
@@ -14,6 +14,16 @@ class Utilidades
         $cadena = str_replace($buscar, $reemplazar, $cadena);
         $aleatorio = rand(0, 9999);
         return $cadena . '-' . $aleatorio;
+    }
+
+    //Limpia caracteres raros en el nombre de los archivos
+    public static function limpiar_archivo_sin_random($cadena)
+    {
+        $buscar  = array(' ', '*', '!', '@', '?', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'í', 'ó', 'Ú', 'ñ', 'Ñ', 'Ü', 'ü', '¿', '¡');
+        $reemplazar = array('-', '', '', '', '', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'n', 'N', 'U', 'u', '', '');
+        $cadena = str_replace($buscar, $reemplazar, $cadena);
+        
+        return $cadena;
     }
 
     //Redimensionar el tamaño de las imagenes subidas al servidor a un ancho dado en los parámetros y optimizarlas

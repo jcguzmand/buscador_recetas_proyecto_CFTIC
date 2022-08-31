@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     initValidacionFormJqueryValidate();
     initvalidacionSubmit();
-    initvalidacionInputEventos();
+    
 });
 
 function initAddTags() {
@@ -162,7 +162,8 @@ function initValidacionFormJqueryValidate() {
             imagen: {
                 required: "Por favor, seleccione una imagen"
             }
-        }
+        },
+        errorClass: "errorPer"
     });
 }
 
@@ -172,6 +173,7 @@ function initvalidacionSubmit() {
         if($(".form-group-tags .bootstrap-tagsinput span").length == 0){
             $("#custom-tags-error").show();
             $('#custom-tags-error').text('Por favor, introduzca los tags de búsqueda');
+            addTags
             tags = false;
         }else{
             tags = true;
@@ -179,7 +181,7 @@ function initvalidacionSubmit() {
 
         if($(".form-group-ingredientes .bootstrap-tagsinput span").length == 0){
             $("#custom-ingredientes-error").show();
-            $('#custom-ingredientes-error').text('Por favor, introduzca los tags de búsqueda');
+            $('#custom-ingredientes-error').text('Por favor, introduzca los ingredientes');
             ingredientes = false;
         }else{
             ingredientes = true;
@@ -214,58 +216,59 @@ function initvalidacionSubmit() {
         if(tags && ingredientes && elaboracion && tiempo && numPersonas){
             $('#form_add_receta').unbind('submit').submit();
         }
+
+        //Validación despues de hacer submit
+
+        $('.form-group-tags .bootstrap-tagsinput').on('focusout', function (event) {
+            if($(".form-group-tags .bootstrap-tagsinput span").length == 0){
+                $("#custom-tags-error").show();
+                $('#custom-tags-error').text('Por favor, los tags de búsqueda');
+            }else{
+                $("#custom-tags-error").hide();
+            }
+        });
+    
+    
+        $('.form-group-ingredientes .bootstrap-tagsinput').on('focusout', function (event) {
+            if($(".form-group-ingredientes .bootstrap-tagsinput span").length == 0){
+                $("#custom-ingredientes-error").show();
+                $('#custom-ingredientes-error').text('Por favor, introduzca los ingredientes');
+            }else{
+                $("#custom-ingredientes-error").hide();
+            }
+        });
+    
+        $('.note-editable').on('focusout', function (event) {
+            if($(".note-editable br").length == 1 && $(".note-editable > p").text() == "" ){
+                $("#custom-elaboracion-error").show();
+                $('#custom-elaboracion-error').text('Por favor, introduzca la elaboración');
+                console.log($(".note-editable br").length);     
+            }else{
+                $("#custom-elaboracion-error").hide();
+                console.log($(".note-editable br").length);
+            }
+        });
+    
+        $('.form-group-tiempo span').on('click', function (event) {
+            if($("#tiempo").val() == '0'){
+                $("#custom-tiempo-error").show();
+                $('#custom-tiempo-error').text('Por favor, introduzca el tiempo de preparación');
+            }else{
+                $("#custom-tiempo-error").hide();
+            }
+        });
+
+        $('.form-group-numPersonas span').on('click', function (event) {
+            if($("#numPersonas").val() == '0'){
+                $("#custom-numPersonas-error").show();
+                $('#custom-numPersonas-error').text('Por favor, introduzca el número de comensales');
+            }else{
+                $("#custom-numPersonas-error").hide();
+            }
+        });
     });
 }
 
-function initvalidacionInputEventos() {
-    $('.form-group-tags .bootstrap-tagsinput').on('focusout', function (event) {
-        if($(".form-group-tags .bootstrap-tagsinput span").length == 0){
-            $("#custom-tags-error").show();
-            $('#custom-tags-error').text('Por favor, introduzca los ingredientes');
-        }else{
-            $("#custom-tags-error").hide();
-        }
-    });
 
-
-    $('.form-group-ingredientes .bootstrap-tagsinput').on('focusout', function (event) {
-        if($(".form-group-ingredientes .bootstrap-tagsinput span").length == 0){
-            $("#custom-ingredientes-error").show();
-            $('#custom-ingredientes-error').text('Por favor, introduzca los ingredientes');
-        }else{
-            $("#custom-ingredientes-error").hide();
-        }
-    });
-
-    $('.note-editable').on('focusout', function (event) {
-        if($(".note-editable br").length == 1 && $(".note-editable > p").text() == "" ){
-            $("#custom-elaboracion-error").show();
-            $('#custom-elaboracion-error').text('Por favor, introduzca la elaboración');
-            console.log($(".note-editable br").length);     
-        }else{
-            $("#custom-elaboracion-error").hide();
-            console.log($(".note-editable br").length);
-        }
-    });
-
-    $('.form-group-tiempo span').on('click', function (event) {
-        if($("#tiempo").val() == '0'){
-            $("#custom-tiempo-error").show();
-            $('#custom-tiempo-error').text('Por favor, introduzca el tiempo de preparación');
-        }else{
-            $("#custom-tiempo-error").hide();
-        }
-    });
-
-    $('.form-group-numPersonas span').on('click', function (event) {
-        if($("#numPersonas").val() == '0'){
-            $("#custom-numPersonas-error").show();
-            $('#custom-numPersonas-error').text('Por favor, introduzca el número de comensales');
-        }else{
-            $("#custom-numPersonas-error").hide();
-        }
-    });
-
-}
 
 

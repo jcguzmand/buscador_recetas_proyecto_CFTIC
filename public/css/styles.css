@@ -544,11 +544,102 @@ label.error {
 
 label.error::before {
     content: "❌ ";
-  }
+}
 
 input.error {
     border: 2px dotted red;
     font-weight: 300;
     color: red;
 }
+
+/*Errores de validacion personalizado para el campo nombree e addrecetas y editrecetas no mostrar contorno rojo del input---------------------------------------- */
+
+label.errorPer {
+    color: red;
+    font-size: 1rem;
+    display: block;
+    margin-top: 5px;
+}
+
+label.errorPer::before {
+    content: "❌ ";
+}
+
+
+  /*Perfil de usuario------------------------------------------------------------------------------------------------------------------------------------------ */
+
+  #img_usuario_miniatura{
+   
+
+    clip-path: circle(75px at center);
+    vertical-align: middle;
+}
+
+
+
+.custom-file-user .custom-file-label::after {
+	content: "Cambiar foto" !important;
+}
+
+
+#form_perfil h5{
+    font-weight: bold;
+}
+
+#form_perfil i{
+    display: inline;
+}
+
+#form_perfil .custom-file-label {
+	height: calc(1.5em + 1rem + 2px) !important;
+	padding-top: .5rem !important;
+	padding-bottom: .5rem !important;
+	padding-left: 1rem !important;
+	font-size: 1rem !important;
+    color: #757575 !important;
+}
+
+#form_perfil .custom-file-label::after{
+    padding: .500rem .75rem !important;
+    background-color: #E95420 !important;
+    color: white !important;
+}
+
+label.success {
+    color: rgb(2, 179, 25);
+    font-size: 1rem;
+    display: block;
+    margin-top: 5px;
+}
+
+label.success::before {
+    content: "✅ ";
+}
+
+#custom-nombre-success {
+    display: none;
+}
+
+#custom-email-success{
+    display: none
+}
+
+#custom-nombre-error{
+    display: none;
+}
+
+#custom-password-error{
+    display: none;
+}
+
+#custom-password-success {
+    display: none;
+}
+
+
+
+
+
+
+
 

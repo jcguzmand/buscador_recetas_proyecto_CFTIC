@@ -24,7 +24,7 @@ class UsuariosController extends AbstractController
         $nombre     = $request->request->get('nombre');
         $email      = $request->request->get('email');
         $password   = $request->request->get('password');
-        
+
         //Hashear el password usando una constante como semilla
         $password   = password_hash($password, PASSWORD_DEFAULT);
         //Obteber la url de la imagen por defecto
@@ -52,23 +52,53 @@ class UsuariosController extends AbstractController
     {
         //Obtener nombre del formulario
         $nombre = $request->request->get('nombre');
-        
+
         $usuarios = $em->getRepository(Usuarios::class)->findAll();
-        
+
         //Comprobar que el nombre de usuario introducido no existe en la BD
         foreach ($usuarios as $usuario) {
             if (strtolower($usuario->getNombre()) == strtolower($nombre)) {
                 //Si existe un nombre igual devolvemos salimos del método y devolvemos false 
                 return $this->json([
-                    'resultado' => false  
-                ]);  
+                    'resultado' => false
+                ]);
             }
         }
 
         //Si el nombre no existe devolvemos true
         return $this->json([
-            'resultado' => true  
-        ]);  
+            'resultado' => true
+        ]);
+    }
+
+    #[Route('/comprobar_password_user', name: 'comprobarPassword')]
+    public function comprobarPassword(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener el usuario con la sesión activa------------------------------------------------------------------
+        $session = $request->getSession();
+        $idUsuario = $session->get('id');
+
+        $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+
+        //Obtener la contraseña del fomulario a través de ajax
+        $password_Form = $request->request->get('password');
+
+        //Recuperar la contraseña de la BD
+        $password_hash_BD = $usuario->getPassword();
+
+        //Comprobar que pass del formulario y de la BD son iguales
+        if (password_verify($password_Form, $password_hash_BD)) {
+
+            //Devolver resultado OK al método Ajax
+            return $this->json([
+                'resultado' => true
+            ]);
+        } else {
+            //Las contraseñas no son iguales
+            return $this->json([
+                'resultado' => false
+            ]);
+        }
     }
 
     #[Route('/conectar', name: 'mostrarFormularioLogin')]
@@ -86,14 +116,14 @@ class UsuariosController extends AbstractController
 
         //Recuperar el usuario de la BD según el email introducido
         $usuario = $em->getRepository(Usuarios::class)->findOneByEmail($email);
-        
+
         //Comprobar en primer lugar que el usuario existe
-        if($usuario){
+        if ($usuario) {
             //Recuperar la contraseña de la BD
             $password_hash = $usuario->getPassword();
 
             //Comprobar que pass del formulario y de la BD son iguales
-            if(password_verify($password_Form, $password_hash)){
+            if (password_verify($password_Form, $password_hash)) {
 
                 //Iniciar sesión
                 $session = $request->getSession();
@@ -103,21 +133,20 @@ class UsuariosController extends AbstractController
 
                 //Devolver resultado OK de login al método Ajax
                 return $this->json([
-                    'resultado' => true  
+                    'resultado' => true
                 ]);
-
-            }else{
+            } else {
                 //Error de contraseña
                 return $this->json([
-                'resultado' => false  
+                    'resultado' => false
                 ]);
             }
-        }else{
+        } else {
             //Error de usuario
             return $this->json([
-                'resultado' => false  
+                'resultado' => false
             ]);
-        } 
+        }
     }
 
     #[Route('/desconectar', name: 'desconectarUsuario')]
@@ -130,6 +159,124 @@ class UsuariosController extends AbstractController
         return $this->redirectToRoute('inicio');
     }
 
+    #[Route('/perfil-user', name: 'verPerfilUsuario')]
+    public function verPerfilUsuario(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener el usuario con la sesión activa------------------------------------------------------------------
+        $session = $request->getSession();
+        $idUsuario = $session->get('id');
+
+        $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+
+        //Retorno la vista-----------------------------------------------------------------------------
+        return $this->render('usuarios/perfilUsuario.html.twig', [
+            'usuario' => $usuario
+        ]);
+    }
+
+    #[Route('/edit-image-user', name: 'editarImagenUsuario')]
+    public function editarImagenUsuario(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener el usuario con la sesión activa------------------------------------------------------------------
+        $session = $request->getSession();
+        $idUsuario = $session->get('id');
+
+        $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+        $nombre = $usuario->getNombre();
+
+        //Recuperar el archivo con la imagen de la petición de Ajax
+        $file = $request->files->get('file');
+
+        //Cambiamos el nombre de la imagen al del nombre de la receta limpiandolo antes de caracteres raros
+        $imagen = Utilidades::limpiar_archivo_sin_random($nombre);
+        $imagen = strtolower($imagen) . ".jpg";
+        //Copiar el archivo de la imagen en la ruta del proyecto en el servidor
+        copy($file, "img/usuarios/" . $imagen);
+
+        //Guardamos la ruta en la receta
+        $usuario->setImagen($imagen);
+
+        //Guardar el usuario modificado en la BD
+        $em->getRepository(Usuarios::class)->add($usuario, true);
+
+        //Devolver datos en formato json 
+        return $this->json([
+            'resultado'  => true
+        ]);
+    }
+
+    #[Route('/edit-name-user', name: 'editarNombreUsuario')]
+    public function editarNombreUsuario(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener el nombre del formulario de la petición ajax
+        $nombre  = $request->request->get('nombre');
+
+        //Obtener el usuario con la sesión activa------------------------------------------------------------------
+        $session = $request->getSession();
+        $idUsuario = $session->get('id');
+        $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+
+        //Modificar el campo nombre del usuario
+        $usuario->setNombre($nombre);
+
+        //Guardar el usuario modificado en la BD
+        $em->getRepository(Usuarios::class)->add($usuario, true);
+
+        //Devolver datos en formato json 
+        return $this->json([
+            'resultado'  => true
+        ]);
+    }
+
+    #[Route('/edit-email-user', name: 'editarEmailUsuario')]
+    public function editarEmailUsuario(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener el nombre del formulario de la petición ajax
+        $email = $request->request->get('email');
+
+        //Obtener el usuario con la sesión activa------------------------------------------------------------------
+        $session = $request->getSession();
+        $idUsuario = $session->get('id');
+        $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+
+        //Modificar el campo nombre del usuario
+        $usuario->setEmail($email);
+
+        //Guardar el usuario modificado en la BD
+        $em->getRepository(Usuarios::class)->add($usuario, true);
+
+        //Devolver datos en formato json 
+        return $this->json([
+            'resultado'  => true
+        ]);
+    }
+
+    #[Route('/edit-password-user', name: 'editarPasswordUsuario')]
+    public function editarPasswordUsuario(Request $request, EntityManagerInterface $em)
+    {
+        //Obtener el password del formulario de la petición ajax
+        $passwordNuevo = $request->request->get('passwordNuevo');
+
+        //Hashear el password usando una constante como semilla
+        $passwordNuevo_Hash = password_hash($passwordNuevo, PASSWORD_DEFAULT);
+
+        //Obtener el usuario con la sesión activa------------------------------------------------------------------
+        $session = $request->getSession();
+        $idUsuario = $session->get('id');
+        $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+
+        //Modificar el campo nombre del usuario
+        $usuario->setPassword($passwordNuevo_Hash);
+
+        //Guardar el usuario modificado en la BD
+        $em->getRepository(Usuarios::class)->add($usuario, true);
+
+        //Devolver datos en formato json 
+        return $this->json([
+            'resultado'  => true
+        ]);
+    }
+
     #[Route('/detallesUsuario', name: 'detallesUsuario')]
     public function detallesUsuario(Request $request, EntityManagerInterface $em)
     {
@@ -140,7 +287,7 @@ class UsuariosController extends AbstractController
         $usuario = $em->getRepository(Usuarios::class)->find(1);
         dump('$usuario en inicio', $usuario);
 
-        
+
         //Retorno la vista con los datos--------------------------------------------------------------
         return $this->render('usuarios/detallesUsuario.html.twig', [
             'usuario'       => $usuario

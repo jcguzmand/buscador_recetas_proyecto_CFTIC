@@ -1,7 +1,6 @@
 $(document).ready(function () {
     initValidacionFormReg();
-    initValidacionNombreUsuario();
-    
+    initValidacionNombreUsuario();  
 });
 
 function initValidacionFormReg() {
@@ -42,6 +41,7 @@ function initValidacionFormReg() {
     });
 }
 
+//Comprobar que el nombre no existen ya en la base de datos
 function initValidacionNombreUsuario() {
     $('#nombre').off('keyup');
     $('#nombre').on('keyup', function (event) {

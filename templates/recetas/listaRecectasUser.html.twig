@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-	<div class="container mt-5">
+	<div class="container mt-2">
 		<div class="row justify-content-center">
 			<div class="col-12">
 				<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
@@ -44,13 +44,13 @@
 									<td>{{receta.numValoraciones}}</td>
 									<td>{{ receta.fechaCreacion|date("d/m/y") }}</td>
 									<td>
-										<a href="{{ path('verDetalles', {id: receta.Id})}}" class="mr-1">
+										<a href="{{ path('verDetallesUsuario', {id: receta.Id})}}" class="mr-1">
 											<i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver la receta"></i>
 										</a>
 										<a href="{{ path('mostrarFormEditReceta', {id: receta.Id}) }}" class="mr-1">
 											<i class="fa-solid fa-pen-to-square" data-toggle="tooltip" data-placement="top" title="Editar la receta"></i>
 										</a>
-										<a href="#" class="mr-1 eliminar-recetas-link" id="eliminar-recetas-link" data-receta-id = "{{ receta.id }}">
+										<a href="#" class="mr-1 eliminar-recetas-link" id="eliminar-recetas-link" data-receta-id = "{{ receta.id }}" data-receta-nombre = "{{ receta.nombre }}">
 											<i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Borrar la receta"></i>
 										</a>
 									</td>

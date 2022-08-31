@@ -190,6 +190,34 @@ class RecetasController extends AbstractController
         ]);
     }
 
+    #[Route('/detalles-receta-user', name: 'verDetallesUsuario')]
+    public function verDetallesUsuario(Request $request, EntityManagerInterface $em)
+    {
+        dump('$request->query en verDetalles', $request->query);
+        //Obtener el id de la receta envíada a través del enlace por el método GET
+        $id = $request->query->get('id');
+        //Obtener la entidad receta-----------------------------------------------------------------
+        $receta = $em->getRepository(Recetas::class)->find($id);
+        //Crear array con la cadena del campo ingredientes------------------------------------------
+        $arrayIngredientes = explode(",", $receta->getIngredientes());
+        dump('$arrayIngredientes en verDetalles', $arrayIngredientes);
+        dump('$receta en verDetalles', $receta);
+
+        //Obtener el usuario-------------------------------------------------------------------------
+        $usuario = $receta->getUsuario();
+        dump('$usuario en verDetalles', $usuario);
+
+        //Creación de la consulta de categorias para cargar en el select del menú
+        $categorias = $em->getRepository(Categorias::class)->findAll();
+
+        //Retorno la vista con los datos--------------------------------------------------------------
+        return $this->render('recetas/detallesRecetaUsuario.html.twig', [
+            'receta'            => $receta,
+            'arrayIngredientes' => $arrayIngredientes,
+            'categorias'        => $categorias
+        ]);
+    }
+
     #[Route('/buscar', name: 'buscar')]
     public function buscar(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator)
     {

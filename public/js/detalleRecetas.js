@@ -1,5 +1,6 @@
 $(document).ready(function () {
     initStarRating();
+    initStarRatingSoloLectura();
     initAddComentarios();
 });
 
@@ -15,6 +16,19 @@ function initStarRating() {
         callback: function(currentRating){
             addValoracion(currentRating);
         }
+    });
+}
+
+function initStarRatingSoloLectura() {
+    $(".my-rating-4-read-only").starRating({
+        totalStars: 5,
+        starShape: 'rounded',
+        starSize: 25,
+        emptyColor: 'lightgray',
+        hoverColor: '#D07351',
+        activeColor: '#bd461b',
+        useGradient: false,
+        readOnly: true
     });
 }
 

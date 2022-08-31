@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block content %}
+	<div class="container mt-2">
+		<div class="row justify-content-center">
+
+			<div class="col-12 col-md-8">
+				<div class="row justify-content-between ml-0 mr-0">
+					<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
+						<img src="img/logo_inverso.png" alt="Logotipo" height="50">
+					</a>
+				</div>
+
+				<div class="card-box" id="card_formulario_registro">
+					<div class="row">
+						<div class="col">
+
+							<div class="message message--error mb-3">
+								<p>
+									<strong>El nombre introducido ya existe en nuestro sistema.</strong>
+									Por favor, introduce otro nombre y recuerda que el nombre puede contener cualquier caracter alfanúmerico.
+								</p>
+							</div>
+							<div id="form_perfil">
+								<form action="#" method="POST" id="form_imagen" enctype="multipart/form-data">
+									<fieldset>
+										<legend class="mb-4">Mi perfil</legend>
+										<hr>
+										<h5>Cambio de foto</h5>
+										<div class="row mt-4 mb-5">
+											<div class="col-12 col-md-4 text-center">
+												<div class="col-sm-12 align-middle"><img width="150" height="150" src="img/usuarios/{{usuario.imagen}}" alt="Avatar usuario" id="img_usuario_miniatura"></div>
+											</div>
+											<div class="col-12 col-md-8 custom-file-user">
+												<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Seleccione una imagen en formato jpg."></i>
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" id="customFile" name="imagen" accept="image/jpeg">
+													<label class="custom-file-label" for="customFile" id="img_label">{{ usuario.imagen }}</label>
+												</div>
+											</div>
+										</div>
+									</form>
+
+									<hr>
+									<form action="#" method="POST" id="form_nombre">
+										<h5>Cambio de nombre</h5>
+										<div class="form-row mt-4 mb-5">
+											<div class="col-12 col-md-8 mr-4 mb-3">
+												<input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" value="{{ usuario.nombre }}"  data-nombre="{{ usuario.nombre }}">
+												<label id="custom-nombre-error" class="error" for="nombre" style=""></label>
+												<label id="custom-nombre-success" class="success" for="nombre" style="">Nombre cambiado correctamente</label>
+											</div>
+											<div class="col-12 col-md-3 mb-3">
+												<input type="hidden" id="hidden" value="true">
+												<input class="btn btn-primary" type="submit" value="Cambiar nombre" id="btn_submit_nombre">
+											</div>
+										</div>
+									</form>
+
+									<hr>
+									<form action="#" method="POST" id="form_email">
+										<h5>Cambio de correo electrónico</h5>
+										<div class="form-row mt-4 mb-5">
+											<div class="col-12 col-md-8 mr-4 mb-3">
+												<input class="form-control" type="text" placeholder="email" id="email" name="email" value="{{ usuario.email }}">
+												<label id="custom-email-success" class="success" for="email" style="">Correo electrónico cambiado correctamente</label>
+											</div>
+											<div class="col-12 col-md-3 mb-3">
+												<input class="btn btn-primary" type="submit" value="Cambiar email">
+											</div>
+										</div>
+									</form>
+									<hr>
+									<form action="#" method="POST" id="form_password">
+										<h5>Cambio de contraseña</h5>
+										<div class="form-row mt-4">
+											<div class="col-12 col-md-8 mr-4 mb-3">
+												<label class="col-form-label" for="passwordActual">Contraseña actual:</label>
+												<input class="form-control" type="password" placeholder="Contraseña actual" id="passwordActual" name="passwordActual">
+												<label id="custom-password-error" class="error" for="passwordActual" style=""></label>
+											</div>
+											<div class="col-12 col-md-8 mr-4 mb-3">
+												<label class="col-form-label" for="passwordNuevo">Nueva contraseña:</label>
+												<input class="form-control" type="password" placeholder="Nueva contraseña" id="passwordNuevo" name="passwordNuevo">
+												<label id="custom-password-success" class="success" for="passwordNuevo" style="">Contraseña cambiada correctamente</label>
+											</div>
+											<div class="col-12 col-md-8 mr-4 mb-3">
+												<label class="col-form-label" for="passwordRepite">Repite nueva contraseña:</label>
+												<input class="form-control" type="password" placeholder="Repite nueva contraseña" id="passwordRepite" name="passwordRepite">
+											</div>
+											<div class="col-12 col-md-3 mb-3 col align-self-end">
+												<input class="btn btn-primary" type="submit" value="Cambiar contraseña">
+											</div>
+										</div>
+									</form>
+
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>{% endblock %}{% block javascripts %}
+<script src="/js/perfil_usuario.js"></script>{% endblock %}

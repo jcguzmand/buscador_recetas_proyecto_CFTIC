@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-	<div class="container mt-5">
+	<div class="container mt-2">
 		<div class="row">
 			<div class="col-12">
 				<a class="navbar-brand mb-2" href="{{ path('inicio') }}" id="enlace_inicio" data-toggle="tooltip" data-placement="top" title="Ir a inicio">
@@ -33,7 +33,7 @@
 																																																																																																																																																										Es recomendable que cada Tag sea un nombre de ingrediente en singular. Al terminar de escribir una Tag pulsa intro y continua con el siguiente. Por favor, cuida la ortografía."></i>
 												</label>
 												<input class="form-control form-control-lg" type="text" placeholder="Añade tags..." id="addTags" name="tags">
-												<label id="custom-tags-error" class="error" for="" ></label>
+												<label id="custom-tags-error" class="error" for="addTags" ></label>
 											</div>
 										</div>
 										<div class="col">
@@ -43,7 +43,7 @@
 																																																																																																																																																										Ejemplo de ingrediente: '200 gr. de arroz'"></i>
 												</label>
 												<input class="form-control form-control-lg" type="text" placeholder="Añade ingredientes..." id="addIngredientes" name="ingredientes">
-												<label id="custom-ingredientes-error" class="error" for="" ></label>
+												<label id="custom-ingredientes-error" class="error" for="addIngredientes" ></label>
 											</div>
 										</div>
 									</div>
@@ -77,7 +77,7 @@
 											<i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Le recomendamos que utilice una lista ordenada para indicar los pasos de la receta. Tambien puede usar encabezados para organizar el texto."></i>
 										</label>
 										<textarea class="form-control form-control-lg summernote-input-air" id="addElaboracion" rows="5" name="elaboracion" placeholder="Elaboración..."></textarea>
-										<label id="custom-elaboracion-error" class="error" for="" ></label>
+										<label id="custom-elaboracion-error" class="error" for="addElaboracion" ></label>
 									</div>
 
 									<div class="row mt-5">
@@ -100,12 +100,12 @@
 										<div class="col-12 col-md-6 form-group-tiempo">
 											<label class="col-form-label col-form-label-lg mt-3" for="tiempo">Tiempo de preparación:</label>
 											<input id="tiempo" type="text" value="0" name="tiempo" class="form-control input-lg">
-											<label id="custom-tiempo-error" class="error" for="" ></label>
+											<label id="custom-tiempo-error" class="error" for="tiempo" ></label>
 										</div>
 										<div class="col-12 col-md-6 form-group-numPersonas">
 											<label class="col-form-label col-form-label-lg mt-3" for="numPersonas">Nº personas:</label>
 											<input id="numPersonas" type="text" value="0" name="numPersonas" class="form-control input-lg">
-											<label id="custom-numPersonas-error" class="error" for="" ></label>
+											<label id="custom-numPersonas-error" class="error" for="numPersonas" ></label>
 										</div>
 									</div>
 
