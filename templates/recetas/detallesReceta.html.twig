@@ -15,7 +15,7 @@
 	{% else %}
 		{{include('elements/menus/menuAnonimos.html.twig')}}
 	{% endif %}
-	
+
 {% endblock %}
 
 {% block content %}
@@ -32,19 +32,19 @@
 						<div class="row mb-3">
 							<div class="col-md-9">
 								<div class="row mb-2">
-									<div class="col-sm-auto">
+									<div class="col-auto mb-2">
 										<span>
 											<a href="{{ path('filtroCategoria', {'id': receta.categoria.id })}}" class="rdr-tag" data-toggle="tooltip" data-placement="top" title="Encontrar recetas de {{ receta.categoria.nombre|lower }}">{{ receta.categoria.nombre }}</a>
 										</span>
 									</div>
-									<div class="col-sm-auto">
+									<div class="col-auto mb-2">
 										<span class="rdr-tag">{{receta.dificultad}}</span>
 									</div>
-									<div class="col-sm-auto">
+									<div class="col-auto mb-2">
 										<span class="rdr-tag">{{receta.tiempo}}
 											min.</span>
 									</div>
-									<div class="col-sm-auto">
+									<div class="col-auto mb-2">
 										<span class="rdr-tag">{{receta.numPersonas}}
 											pers.</span>
 									</div>
@@ -60,66 +60,94 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-9">
+							<div class="row">
+								<div class="col-auto ml-3">
+									<div class="row">
+										{% set valPromedio = (receta.valoracion and receta.numValoraciones ? receta.valoracion / receta.numValoraciones : 0) %}
+										<div class="my-rating-4 ml-2" data-rating="{{ valPromedio }}"></div>
+										<div class="text-muted ml-2" id="valPromedio">{{valPromedio|number_format(1, '.')}}/5</div>
+									</div>
+								</div>
 								<div class="row">
-									{% set valPromedio = (receta.valoracion and receta.numValoraciones ? receta.valoracion / receta.numValoraciones : 0) %}
-									<div class="my-rating-4 ml-2" data-rating="{{ valPromedio }}"></div>
-									<div class="text-muted ml-2" id="valPromedio">{{valPromedio|number_format(1, '.')}}/5</div>
-									<div class="col-sm-2 text-muted" id="numVal">{{receta.numValoraciones}}
+									<div class="col-auto text-muted ml-4" id="numVal">{{receta.numValoraciones}}
 										votos</div>
 								</div>
-							</div>
-						</div>
-						<div class="row mb-4">
-							<div class="col-sm-12"><img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.Nombre }}"></div>
-						</div>
-						<div class="row mb-4" id="ingredientes">
-							<div class="col-md-12" id="detalleReceta_fondoIngr">
-								<h4 class="detalleReceta_subtitulo">Ingredientes:</h4>
-								<ul class="list-group list-group-flush">
-									{% for ingred in arrayIngredientes %}
-										<li class="list-group-item">{{ ingred }}</li>
-									{% endfor %}
-								</ul>
-							</div>
-						</div>
-						<div class="row" id="elaboracion">
-							<div class="col-sm-12">
-								<h4 class="detalleReceta_subtitulo mb-4 mt-4">Elaboración:</h4>
-								{{ receta.elaboracion|raw }}
-							</div>
-						</div>
+								{% if favorita != false %}
+									{% if favorita == 1 %}
+										<div class="row div_visible" id="no_select">
+											<div class="col-auto ml-4">
+											<a href="#" id="edit_favorita" data-estado='0'>
+												<i class="fa-sharp fa-solid fa-heart fa-lg favorita_noselec" data-toggle="tooltip" data-placement="top" title="Agregar a favoritas" id="icono_corazon"></i>
+											</a>
+											</div>
+										</div>
+										<div class="row div_novisible" id="select" >
+											<div class="col-auto ml-4">
+												<a href="#" id="edit_favorita_1" data-estado='1'>
+													<i class="fa-sharp fa-solid fa-heart fa-lg favorita_selec" data-toggle="tooltip" data-placement="top" title="Quitar de favoritas" id="icono_corazon"></i>
+												</a>
+											</div>
+										</div>
+									{% else %}
+										<div class="row div_novisible" id="no_select">
+											<div class="col-auto ml-4">
+											<a href="#" id="edit_favorita" data-estado='0'>
+												<i class="fa-sharp fa-solid fa-heart fa-lg favorita_noselec" data-toggle="tooltip" data-placement="top" title="Agregar a favoritas" id="icono_corazon"></i>
+											</a>
+											</div>
+										</div>
+										<div class="row div_visible" id="select">
+											<div class="col-auto ml-4">
+												<a href="#" id="edit_favorita_1" data-estado='1'>
+													<i class="fa-sharp fa-solid fa-heart fa-lg favorita_selec" data-toggle="tooltip" data-placement="top" title="Quitar de favoritas" id="icono_corazon"></i>
+												</a>
+											</div>
+										</div>
+									{% endif %}
+								{% endif %}
 
-						<div id="container_lista_comentarios">
-							{% include 'elements/lista_comentarios.html.twig' %}
-						</div>
-
-						<div class="row" id="comentarios_form">
-							<div class="col-sm-12">
-								<form action="{{ path('añadirComentario') }}" id="form-add-comentarios" method="POST">
-									<div class="form-group">
-										<label for="exampleFormControlTextarea1">Comentario:</label>
-										<textarea class="form-control" name="contenido" id="contenido_textarea" rows="3"></textarea>
-									</div>
-									<input type="hidden" id="idReceta" value="{{receta.id}}" name="idReceta">
-									<button type="submit" class="btn btn-primary">Enviar comentario</button>
-								</form>
 							</div>
 						</div>
-
 					</div>
 				</div>
+				<div class="row mb-4">
+					<div class="col-sm-12"><img class="card-img-top" src="img/recetas/{{receta.ImagenUrl}}" alt="{{ receta.Nombre }}"></div>
+				</div>
+				<div class="row mb-4" id="ingredientes">
+					<div class="col-md-12" id="detalleReceta_fondoIngr">
+						<h4 class="detalleReceta_subtitulo">Ingredientes:</h4>
+						<ul class="list-group list-group-flush">
+							{% for ingred in arrayIngredientes %}
+								<li class="list-group-item">{{ ingred }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div class="row" id="elaboracion">
+					<div class="col-sm-12">
+						<h4 class="detalleReceta_subtitulo mb-4 mt-4">Elaboración:</h4>
+						{{ receta.elaboracion|raw }}
+					</div>
+				</div>
+
+				<div id="container_lista_comentarios">
+					{% include 'elements/lista_comentarios.html.twig' %}
+				</div>
+
+				<div class="row" id="comentarios_form">
+					<div class="col-sm-12">
+						<form action="{{ path('añadirComentario') }}" id="form-add-comentarios" method="POST">
+							<div class="form-group">
+								<label for="exampleFormControlTextarea1">Comentario:</label>
+								<textarea class="form-control" name="contenido" id="contenido_textarea" rows="3"></textarea>
+							</div>
+							<input type="hidden" id="idReceta" value="{{receta.id}}" name="idReceta">
+							<button type="submit" class="btn btn-primary">Enviar comentario</button>
+						</form>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
-
-{% endblock %}
-
-{% block footer %}
-	{{include('elements/footer.html.twig')}}
-{% endblock %}
-
-{% block javascripts %}
-	<script src="/libs/star-rating-svg/jquery.star-rating-svg.js"></script>
-	<script src="/js/detalleRecetas.js"></script>
-{% endblock %}
+</div></div>{% endblock %}{% block footer %}{{include('elements/footer.html.twig')}}{% endblock %}{% block javascripts %}<script src="/libs/star-rating-svg/jquery.star-rating-svg.js"></script><script src="/js/detalleRecetas.js"></script>{% endblock %}

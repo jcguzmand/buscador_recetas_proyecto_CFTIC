@@ -17,7 +17,7 @@
 						</div>
 						{#dump(recetas)#}
 					</div>
-
+					{% if recetas is not empty %}
 					<table class="table table-responsive-xl" id="table_recetas_user">
 						<thead>
 							<tr>
@@ -62,6 +62,9 @@
 				<div class="mt-4">
 					{{ knp_pagination_render(recetas, 'paginacion/my_pagination.html.twig') }}
 				</div>
+				{% else %}
+                    Todavía no ha añadido ninguna receta.
+                {% endif %} 
 			</div>
 		</div>
 	</div>

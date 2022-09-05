@@ -2,6 +2,8 @@ $(document).ready(function () {
     initStarRating();
     initStarRatingSoloLectura();
     initAddComentarios();
+    initAddFavorita();
+    initDeleteFavorita();
 });
 
 function initStarRating() {
@@ -13,7 +15,7 @@ function initStarRating() {
         hoverColor: '#D07351',
         activeColor: '#bd461b',
         useGradient: false,
-        callback: function(currentRating){
+        callback: function (currentRating) {
             addValoracion(currentRating);
         }
     });
@@ -90,6 +92,64 @@ function addComentarios() {
             console.log('No ha sido posible contactar. Inténtelo de nuevo más tarde');
         }
     });
-    
 }
 
+function initAddFavorita() {
+    $('#edit_favorita').on('click', function (event) {
+        event.preventDefault();
+        var idReceta = $('#idReceta').val();
+        var formData = {
+            'idReceta': idReceta
+        };
+
+        if ($(this).data('estado') == '0') {
+            $.ajax({
+                type: 'POST',
+                url: '/add-favorita',
+                dataType: 'json',
+                data: formData,
+                success: function (data, textStatus, xhr) {
+                    $('#no_select').removeClass('div_visible').addClass('div_novisible');
+                    $('#select').removeClass('div_novisible').addClass('div_visible');
+                    console.log('Favorita agregada');
+
+                },
+                error: function (datos) {
+                    console.log('No ha sido posible añadir la receta a sus favoritos');
+                    console.log('Datos del error');
+                    console.log(datos.responseText);
+                }
+            });
+
+        }
+    });
+}
+
+function initDeleteFavorita() {
+    $('#edit_favorita_1').on('click', function (event) {
+        event.preventDefault();
+        var idReceta = $('#idReceta').val();
+        var formData = {
+            'idReceta': idReceta
+        };
+        if ($(this).data('estado') == '1') {
+            $.ajax({
+                type: 'POST',
+                url: '/delete-favorita',
+                dataType: 'json',
+                data: formData,
+                success: function (data, textStatus, xhr) {
+                    $('#no_select').removeClass('div_novisible').addClass('div_visible');
+                    $('#select').removeClass('div_visible').addClass('div_novisible');
+                    console.log('Favorita eliminada');
+                },
+                error: function (datos) {
+                    console.log('No ha sido posible eliminar la receta de sus favoritos');
+                    console.log('Datos del error');
+                    console.log(datos.responseText);
+                }
+            });
+
+        }
+    });
+}

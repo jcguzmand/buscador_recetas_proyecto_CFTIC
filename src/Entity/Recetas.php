@@ -124,7 +124,7 @@ class Recetas
     /**
      * @var \Usuarios|null
      *
-     * @ORM\ManyToOne(targetEntity="Usuarios", inversedBy="recetas")
+     * @ORM\ManyToOne(targetEntity="Usuarios", inversedBy="recetas", fetch="EAGER")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })

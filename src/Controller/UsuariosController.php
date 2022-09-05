@@ -43,6 +43,12 @@ class UsuariosController extends AbstractController
         //Guardar el usuario en la BD
         $em->getRepository(Usuarios::class)->add($usuario, true);
 
+        //Iniciar sesión
+        $session = $request->getSession();
+        //Crear variables de sesión
+        $session->set('usuario', $usuario);
+        $session->set('id', $usuario->getId());
+
         //Devolver la vista de bienvenida
         return $this->render('usuarios/confirmRegistroUsuario.html.twig');
     }

@@ -342,6 +342,24 @@ img.emoji {
     font-size: 16px;
 }
 
+.favorita_noselec{
+    color:#d5d6d8;
+}
+
+.favorita_selec{
+    color:#BD461B;
+}
+
+.div_visible{
+    display: inline-block !important;
+}
+
+.div_novisible{
+    display: none !important;
+}
+
+#D07351
+
 /*Formulario registro--------------------------------------------- */
 
 #card_formulario_registro{

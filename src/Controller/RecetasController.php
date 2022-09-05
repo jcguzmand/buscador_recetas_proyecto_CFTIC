@@ -175,18 +175,47 @@ class RecetasController extends AbstractController
         dump('$arrayIngredientes en verDetalles', $arrayIngredientes);
         dump('$receta en verDetalles', $receta);
 
-        //Obtener el usuario-------------------------------------------------------------------------
-        $usuario = $receta->getUsuario();
-        dump('$usuario en verDetalles', $usuario);
-
         //Creación de la consulta de categorias para cargar en el select del menú
         $categorias = $em->getRepository(Categorias::class)->findAll();
+
+        //Iniciar sesión
+        $session = $request->getSession();
+
+        $favorita = false;
+        
+        if($session->has('id')){
+            //Recuperamos el usuario de la sesión
+            $idUsuario = $session->get('id');
+            $usuario = $em->getRepository(Usuarios::class)->find($idUsuario);
+            dump('$usuario en verDetalles', $usuario);
+
+            //Consulta para comprobar si es favorita
+            $query = $em->createQuery(
+                'SELECT f FROM App\Entity\Favoritas f
+                    WHERE f.receta = :dato1
+                    AND f.usuario = :dato2'
+            );
+            $idUsuario = $session->get('id');
+            
+            $query->setParameter('dato1', $receta);
+            $query->setParameter('dato2', $usuario);
+
+            $favorita = $query->getResult();
+
+            if (count($favorita) == 0) {
+                $favorita = 1;
+                
+            }
+        }
+
+        dump('$favorita', $favorita);
 
         //Retorno la vista con los datos--------------------------------------------------------------
         return $this->render('recetas/detallesReceta.html.twig', [
             'receta'            => $receta,
             'arrayIngredientes' => $arrayIngredientes,
-            'categorias'        => $categorias
+            'categorias'        => $categorias,
+            'favorita'          => $favorita
         ]);
     }
 
@@ -330,7 +359,7 @@ class RecetasController extends AbstractController
 
         //Crear consulta de recetas del usuario
         $query = $em->getRepository(Recetas::class)->findByUsuario($usuario);
-        
+
         //Configuración del paginador
         $recetas = $paginator->paginate(
             $query,
