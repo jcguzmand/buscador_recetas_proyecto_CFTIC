@@ -4,6 +4,7 @@ $(document).ready(function () {
     initAddComentarios();
     initAddFavorita();
     initDeleteFavorita();
+    initDeleteFavoritaDelListado();
 });
 
 function initStarRating() {
@@ -153,3 +154,4 @@ function initDeleteFavorita() {
         }
     });
 }
+
