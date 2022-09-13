@@ -53,3 +53,46 @@ function alertWarningHtml(title, text, callbackFunction, confirmButtonText, canc
     }
   });
 }
+
+//Mensajes flotantes de confirmación o error
+function notifySuccess(message){
+  toastr.success(message, '', { 
+                          "closeButton": false,
+                          "debug": false,
+                          "newestOnTop": false,
+                          "progressBar": false,
+                          "positionClass": "toast-top-center",
+                          "preventDuplicates": false,
+                          "onclick": null,
+                          "showDuration": "300",
+                          "hideDuration": "1000",
+                          "timeOut": "6000",
+                          "extendedTimeOut": "1000",
+                          "showEasing": "swing",
+                          "hideEasing": "linear",
+                          "showMethod": "fadeIn",
+                          "hideMethod": "fadeOut",
+                          iconClasses: {
+                            success: 'fa-solid fa-check',
+                            
+                        }, });
+}
+
+function notifyError(message){
+  toastr.error(message, '', { 
+                          "closeButton": false,
+                          "debug": false,
+                          "newestOnTop": false,
+                          "progressBar": false,
+                          "positionClass": "toast-top-center",
+                          "preventDuplicates": false,
+                          "onclick": null,
+                          "showDuration": "300",
+                          "hideDuration": "1000",
+                          "timeOut": "6000",
+                          "extendedTimeOut": "1000",
+                          "showEasing": "swing",
+                          "hideEasing": "linear",
+                          "showMethod": "fadeIn",
+                          "hideMethod": "fadeOut" });
+}

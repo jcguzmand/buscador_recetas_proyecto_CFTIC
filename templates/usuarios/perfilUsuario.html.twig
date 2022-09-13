@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Tu perfil{% endblock %}
 
 {% block stylesheets %}{% endblock %}
 
@@ -13,7 +14,7 @@
 					</a>
 				</div>
 
-				<div class="card-box" id="card_formulario_registro">
+				<div class="card-box" id="card_add_recetas">
 					<div class="row">
 						<div class="col">
 
@@ -106,4 +107,4 @@
 		</div>
 	</div>
 </div>{% endblock %}{% block javascripts %}
-<script src="/js/perfil_usuario.js"></script>{% endblock %}
+<script src="{{ asset('js/perfil_usuario.js') }}"></script>{% endblock %}

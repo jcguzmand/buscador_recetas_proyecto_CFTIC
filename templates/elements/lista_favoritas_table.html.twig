@@ -1,34 +1,38 @@
-<table class="table table-responsive-xl" id="table_recetas_user">
-    <thead>
-        <tr>
-            <th scope="col">Imagen</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for fav in favoritas %}
-        <tr>
-        {% if fav.receta.ImagenUrl is not empty %}
-            <td>
-                <img src="img/recetas/{{ fav.receta.ImagenUrl }}" alt="{{ fav.receta.Nombre }}" width="80"></td>
-        {% else %}
-            <td>
-                <img src="img/recetas/nofoto.jpg" alt="{{ fav.receta.Nombre }}" width="80"></td>
-        {% endif %}
-            <td id="celda_nombre">{{ fav.receta.nombre }}</td>
+{% if favoritas is not empty %}
+    <table class="table table-responsive-xl" id="table_recetas_user">
+        <thead>
+            <tr>
+                <th scope="col">Imagen</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fav in favoritas %}
+            <tr>
+            {% if fav.receta.ImagenUrl is not empty %}
+                <td>
+                    <img src="img/recetas/{{ fav.receta.ImagenUrl }}" alt="{{ fav.receta.Nombre }}" width="80"></td>
+            {% else %}
+                <td>
+                    <img src="img/recetas/nofoto.jpg" alt="{{ fav.receta.Nombre }}" width="80"></td>
+            {% endif %}
+                <td id="celda_nombre">{{ fav.receta.nombre }}</td>
 
-            <td>
-                <a href="{{ path('verDetalles', {id: fav.receta.Id}) }}" class="mr-1">
-                    <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver la receta"></i>
-                </a>
-                <a href="#" class="mr-1 eliminar-link" data-receta-id="{{ fav.receta.id }}" data-receta-nombre="{{ fav.receta.nombre }}">
-                    <i class="fa-solid fa-trash-can ml-2" data-toggle="tooltip" data-placement="top" title="Quitar de favoritas"></i>
-                </a>
-            </td>
-        </tr>
-         {% endfor %}
-    </tbody>
-</table>
+                <td>
+                    <a href="{{ path('verDetalles', {id: fav.receta.Id}) }}" class="mr-1">
+                        <i class="fa-solid fa-eye" data-toggle="tooltip" data-placement="top" title="Ver la receta"></i>
+                    </a>
+                    <a href="#" class="mr-1 eliminar-link" data-receta-id="{{ fav.receta.id }}" data-receta-nombre="{{ fav.receta.nombre }}">
+                        <i class="fa-solid fa-trash-can ml-2" data-toggle="tooltip" data-placement="top" title="Quitar de favoritas"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Todavía no a agregado ninguna receta a favoritos</p>
+{% endif %}
 
     

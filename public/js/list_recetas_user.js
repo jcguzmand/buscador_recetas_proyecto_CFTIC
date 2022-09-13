@@ -5,8 +5,8 @@ $(document).ready(function () {
 //Función que lanza la ventana de confirmación en la eliminación de recetas
 function initClickDeleteRecetas() {
 
-    $('.eliminar-recetas-link').off('click');
-    $('.eliminar-recetas-link').on('click', function (event) {
+    $('.eliminar-link').off('click');
+    $('.eliminar-link').on('click', function (event) {
         event.preventDefault();
         //.data('receta-id') hace referecia al atributo del enlace: data-receta-id = "{{ receta.id }}"
         var idReceta = $(this).data('receta-id');
@@ -34,17 +34,23 @@ function eliminarReceta(result, idReceta) {
             dataType: 'json',
             data: formData,
             success: function (data) {
-                location.href = '/usuario-recetas';
+                if (data.retorno.error === false) {
+                    notifySuccess(data.retorno.mensaje);
+                    location.href = '/usuario-recetas';
+                    console.log('Contenido de data');
+                    console.log(data.retorno);
 
-                console.log('Contenido de data en borrado de recetas');
-                console.log(data);
+                } else {
+                    console.log('No se ha podido borrar la receta');
+                    notifyError(data.retorno.mensaje);
+                    console.log(data.retorno);
+                }
             },
             error: function (datos) {
-
                 console.log('Datos del error en borrado de recetas');
                 console.log(datos.responseText);
                 console.log('No se ha podido borrar la receta');
             }
-        }); ç
+        }); 
     }
 }

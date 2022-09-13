@@ -39,7 +39,7 @@ class Comentarios
     /**
      * @var \Recetas|null
      *
-     * @ORM\ManyToOne(targetEntity="Recetas")
+     * @ORM\ManyToOne(targetEntity="Recetas", inversedBy="comentarios")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="receta_id", referencedColumnName="id")
      * })
@@ -49,7 +49,7 @@ class Comentarios
     /**
      * @var \Usuarios|null
      *
-     * @ORM\ManyToOne(targetEntity="Usuarios")
+     * @ORM\ManyToOne(targetEntity="Usuarios", inversedBy="comentarios")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })

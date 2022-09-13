@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Recetas;
-use App\Entity\Categorias;
 use App\Entity\Usuarios;
+use App\Entity\Categorias;
+use App\Utilidades\Utilidades;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use App\Utilidades\Utilidades;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 
 class RecetasController extends AbstractController
@@ -77,7 +78,7 @@ class RecetasController extends AbstractController
             // Definir el parámetro de la página recogida por GET
             $request->query->getInt('page', 1),
             // Número de elementos por página
-            1
+            6
         );
 
         //Consulta para obtener el nombre de la categoria y generar el título
@@ -111,7 +112,7 @@ class RecetasController extends AbstractController
     }
 
     #[Route('/filtro_ingred', name: 'filtroIngrediente')]
-    public function filtroIngrediente(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator,)
+    public function filtroIngrediente(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator)
     {
         dump('$request en filtroIngrediente', $request);
 
@@ -130,7 +131,7 @@ class RecetasController extends AbstractController
             // Definir el parámetro de la página recogida por GET
             $request->query->getInt('page', 1),
             // Número de elementos por página
-            1
+            6
         );
 
         //Consulta para obtener el nombre de la categoria y generar el título
@@ -149,6 +150,57 @@ class RecetasController extends AbstractController
 
         dump('$arrayTags en filtro_ingred', $arrayTags);
         dump('$recetas en filtro_ingred', $recetas);
+
+        //Creación de la consulta de categorias para cargar en el select del menú
+        $categorias = $em->getRepository(Categorias::class)->findAll();
+
+        //Retorno de la vista con peticiones GET
+        return $this->render('recetas/inicio.html.twig', [
+            'recetas'    => $recetas,
+            'arrayTags'  => $arrayTags,
+            'categorias' => $categorias,
+            'titulo'     => $titulo
+        ]);
+    }
+    
+    #[Route('/filtro_user', name: 'filtroUsuario')]
+    public function filtroUsuario(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator)
+    {
+        dump('$request en filtroUsuario', $request );
+        
+        //Consulta de recetas por categoria
+        $idUser = $request->query->get('idUser');
+        $usuario = $em->getRepository(Usuarios::class)->findById($idUser);
+        dump('$usuario', $usuario[0]);
+
+        //Crear consulta de recetas del usuario
+        $query = $em->getRepository(Recetas::class)->findByUsuario($usuario);
+
+        //Configuración del paginador
+        $recetas = $paginator->paginate(
+            $query,
+            // Definir el parámetro de la página recogida por GET
+            $request->query->getInt('page', 1),
+            // Número de elementos por página
+            6
+        );
+        
+
+        //Consulta para obtener el nombre de la categoria y generar el título
+        if (isset($recetas[0])) {
+            $titulo  = 'Recetas de ' . $usuario[0]->getNombre();
+        } else {
+            $titulo  = 'Lo sentimos, el usuario ' . $usuario->getNombre() . ' todavía no tiene recetas';
+        }
+
+        //Crear array con las cadenas de los campos tags
+        $arrayTags = [];
+        foreach ($recetas as $receta) {
+            $arrayTag = explode(",", $receta->getTags());
+            $arrayTags[] = $arrayTag;
+        }
+        dump('$recetas', $recetas);
+        dump('$arrayTags en inicio', $arrayTags);
 
         //Creación de la consulta de categorias para cargar en el select del menú
         $categorias = $em->getRepository(Categorias::class)->findAll();
@@ -268,7 +320,7 @@ class RecetasController extends AbstractController
             }
 
             //Crear la consulta de busqueda
-            $query = $em->createQuery("SELECT r FROM App\Entity\Recetas r WHERE r.tags " . $conditions);
+            $query = $em->createQuery("SELECT r FROM App\Entity\Recetas r WHERE r.tags " . $conditions . " ORDER BY r.valoracion DESC");
 
             //Configurar parámetros
             foreach ($searchValuesArray as $key => $searchValue) {
@@ -528,16 +580,37 @@ class RecetasController extends AbstractController
     #[Route('/delete-receta', name: 'borrarReceta')]
     public function borrarReceta(Request $request, EntityManagerInterface $em)
     {   
-        //Obtener la id de receta de la petición GET
-        $idReceta = $request->request->get('idReceta');
-        //Obtener la receta   
-        $receta = $em->getRepository(Recetas::class)->find($idReceta);
-        //Borrar la receta
-        $em->getRepository(Recetas::class)->remove($receta, true);
+        try{
+            //Obtener la id de receta de la petición GET
+            $idReceta = $request->request->get('idReceta');
+           
+            //Obtener la receta añair excepción si no se encuetra la receta 
+            $receta = $em->getRepository(Recetas::class)->find($idReceta);
+            if (!$receta) { 
+                throw new \Exception('Error al borrar la receta. Receta no encontrada');
+            }
+            //Borrar la receta
+            $em->getRepository(Recetas::class)->remove($receta, true);
+            
+        }catch(\Exception $ex){
+            //En caso de excepción creamos la respuesta para que ajax muestre el mensaje en la ventana toastr
+            $retorno['error'] = true;
+            $retorno['mensaje'] = $ex->getMessage();
 
+            //Devolver datos en formato json 
+            return $this->json([
+            'retorno' => $retorno
+            ]);
+        }
+        //Respuesta para ventana toastr de confirmación   
+        $retorno['error'] = false;
+        $retorno['mensaje'] = 'La receta se ha borrado correctamente';
+                
         //Devolver datos en formato json 
         return $this->json([
-            'mensaje'   => 'La receta se ha borrado correctamente'
+            'retorno' => $retorno
         ]);
     }
 }
+
+

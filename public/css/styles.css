@@ -15,6 +15,12 @@
     height: 35px;
 }
 
+@media (max-width: 410px) {
+    #menu_logo {
+        height: 30px;  
+    }
+}
+
 .dropdown-item:focus, .dropdown-item {
 	color: #703520 !important;
 }
@@ -24,6 +30,15 @@
 	text-decoration: none;
 	background-color: #f7dacc !important;
 }
+
+	
+#barra_nav{
+    position:fixed;
+    width: 100%;
+    z-index: 1;
+}
+ 
+
 
 /* Plantilla de bootstrap----------------------------------------------------------- */
 .jumbotron {
@@ -50,6 +65,7 @@
 footer {
     padding-top: 3rem;
     padding-bottom: 3rem;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 footer p {
@@ -66,6 +82,14 @@ footer p {
 	box-shadow: 0 0 0 .3rem rgba(214, 73, 21, 0.25) !important;
 }
 
+footer .fa-brands{
+    color:#acadad
+}
+
+footer .fa-brands:hover{
+    color:#828181
+}
+
 /*Start Search----------------------------------------------------------- */
 
 #search{
@@ -76,6 +100,8 @@ footer p {
 
     background-position: center;
     position: relative;
+    top: 40px;
+    margin-bottom: 40px;
 }
 
 #search_text{
@@ -273,7 +299,8 @@ img.emoji {
 #elaboracion h3{
     font-family: 'Nunito Sans', sans-serif;
     font-size: 21px;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 30px;
     color: #5d5d5d;
     font-weight: bold;
 }
@@ -366,7 +393,7 @@ img.emoji {
     font-family: 'Nunito Sans', sans-serif;
     color: #5c5c5c;
     border-radius: 0px !important;
-    background-color: #f4f4f4;
+    background-color: #f4f4f4 !important;
 }
 
 #card_formulario_registro legend{
@@ -653,6 +680,30 @@ label.success::before {
 #custom-password-success {
     display: none;
 }
+
+ /*Estilos toastr------------------------------------------------------------------------------------------------------------------------------------------ */
+
+#toast-container > .toast {
+    background-image: none !important;
+}
+
+#toast-container > .toast:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: #FFF;
+    padding-right: 0.5em;
+    margin: auto 0.5em auto -1.5em;
+}        
+/* #toast-container > .toast-warning:before {
+    content: "\f06a";
+} */
+
+/* #toast-container > .toast-success:before {
+    content: "\f00c";
+} */
 
 
 

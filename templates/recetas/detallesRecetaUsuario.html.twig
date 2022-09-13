@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="/libs/star-rating-svg/star-rating-svg.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('libs/star-rating-svg/star-rating-svg.css') }}">
 {% endblock %}
 
 
@@ -93,9 +93,7 @@
 							</div>
 						</div>
 
-						<div id="container_lista_comentarios">
-							{% include 'elements/lista_comentarios.html.twig' %}
-						</div>
+
 					</div>
 				</div>
 			</div>
@@ -109,6 +107,6 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="/libs/star-rating-svg/jquery.star-rating-svg.js"></script>
-	<script src="/js/detalleRecetas.js"></script>
+	<script src="{{ asset('libs/star-rating-svg/jquery.star-rating-svg.js') }}"></script>
+	<script src="{{ asset('js/detalleRecetas.js') }}"></script>
 {% endblock %}

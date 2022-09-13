@@ -25,7 +25,7 @@ class Favoritas
     /**
      * @var \Recetas|null
      *
-     * @ORM\ManyToOne(targetEntity="Recetas")
+     * @ORM\ManyToOne(targetEntity="Recetas", inversedBy="favoritas")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="receta_id", referencedColumnName="id")
      * })
@@ -35,7 +35,7 @@ class Favoritas
     /**
      * @var \Usuarios|null
      *
-     * @ORM\ManyToOne(targetEntity="Usuarios")
+     * @ORM\ManyToOne(targetEntity="Usuarios", inversedBy="favoritas")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })

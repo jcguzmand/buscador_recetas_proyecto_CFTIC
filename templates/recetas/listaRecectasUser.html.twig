@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Tus recetas{% endblock %}
 {% block content %}
 	<div class="container mt-2">
 		<div class="row justify-content-center">
@@ -72,5 +72,5 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="/js/list_recetas_user.js"></script>
+	<script src="{{ asset('js/list_recetas_user.js') }}"></script>
 {% endblock %}

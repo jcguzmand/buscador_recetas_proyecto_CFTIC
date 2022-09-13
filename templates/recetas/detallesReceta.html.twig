@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="/libs/star-rating-svg/star-rating-svg.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('libs/star-rating-svg/star-rating-svg.css') }}">
 {% endblock %}
 
 {% block menu %}
@@ -34,7 +34,7 @@
 								<div class="row mb-2">
 									<div class="col-auto mb-2">
 										<span>
-											<a href="{{ path('filtroCategoria', {'id': receta.categoria.id })}}" class="rdr-tag" data-toggle="tooltip" data-placement="top" title="Encontrar recetas de {{ receta.categoria.nombre|lower }}">{{ receta.categoria.nombre }}</a>
+											<a href="{{ path('filtroCategoria', {'idUser': receta.categoria.id })}}" class="rdr-tag" data-toggle="tooltip" data-placement="top" title="Encontrar recetas de {{ receta.categoria.nombre|lower }}">{{ receta.categoria.nombre }}</a>
 										</span>
 									</div>
 									<div class="col-auto mb-2">
@@ -54,7 +54,7 @@
 								<div class="row" id="autor">
 									<div class="col-sm-12 mb-2">
 										<p class="rdr-author">Receta de
-											<a href="#">{{receta.usuario.nombre}}</a>
+											<a href="{{ path('filtroUsuario' , {'idUser': receta.usuario.id })}}">{{receta.usuario.nombre}}</a>
 											<img width="40" height="40" src="img/usuarios/{{receta.usuario.imagen}}" class="rdr-avatar" alt="{{receta.usuario.nombre}} - Cocinero en y ConEstoQueCocino" loading="lazy" sizes="(max-width: 40px) 100vw, 40px">
 										</p>
 									</div>
@@ -157,6 +157,6 @@
 	{{include('elements/footer.html.twig')}}
 {% endblock %}
 {% block javascripts %}
-	<script src="/libs/star-rating-svg/jquery.star-rating-svg.js"></script>
-	<script src="/js/detalleRecetas.js"></script>
+	<script src="{{ asset('libs/star-rating-svg/jquery.star-rating-svg.js') }}"></script>
+	<script src="{{ asset('js/detalleRecetas.js') }}"></script>
 {% endblock %}

@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Añadir receta{% endblock %}
 {% block stylesheets %}
-	<link href="/libs/summernote/summernote-bs4.css" rel="stylesheet" type="text/css"/>
-	<link href="/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css"/>
+	<link href="{{ asset('libs/summernote/summernote-bs4.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ asset('libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css') }}" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block content %}
@@ -125,8 +125,8 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="/js/add_recetas.js"></script>
-	<script src="/libs/summernote/summernote-bs4.min.js"></script>
-	<script src="/libs/summernote/summernote-es-ES.min.js"></script>
-	<script src="/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+	<script src="{{ asset('js/add_recetas.js') }}"></script>
+	<script src="{{ asset('libs/summernote/summernote-bs4.min.js') }}"></script>
+	<script src="{{ asset('libs/summernote/summernote-es-ES.min.js') }}"></script>
+	<script src="{{ asset('libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 {% endblock %}
