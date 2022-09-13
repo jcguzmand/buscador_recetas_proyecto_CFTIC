@@ -701,9 +701,9 @@ label.success::before {
     content: "\f06a";
 } */
 
-/* #toast-container > .toast-success:before {
+#toast-container > .toast-success:before {
     content: "\f00c";
-} */
+}
 
 
 
