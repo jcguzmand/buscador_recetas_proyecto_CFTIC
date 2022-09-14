@@ -697,9 +697,9 @@ label.success::before {
     padding-right: 0.5em;
     margin: auto 0.5em auto -1.5em;
 }        
-/* #toast-container > .toast-warning:before {
+#toast-container > .toast-warning:before {
     content: "\f06a";
-} */
+}
 
 #toast-container > .toast-success:before {
     content: "\f00c";
