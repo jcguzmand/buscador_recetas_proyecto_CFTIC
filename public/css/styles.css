@@ -385,7 +385,9 @@ img.emoji {
     display: none !important;
 }
 
-#D07351
+#album_detalle{
+    padding-top: 90px !important;
+}
 
 /*Formulario registro--------------------------------------------- */
 

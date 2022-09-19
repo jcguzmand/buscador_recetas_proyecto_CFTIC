@@ -21,7 +21,7 @@
 {% block content %}
 
 	<!--Contenido dinámico -->
-	<div class="album py-4 bg-light">
+	<div class="album py-4 bg-light" id="album_detalle">
 		<div class="container">
 			<div class="card-box">
 				<input type="hidden" id="idReceta" value="{{receta.id}}">
@@ -34,7 +34,7 @@
 								<div class="row mb-2">
 									<div class="col-auto mb-2">
 										<span>
-											<a href="{{ path('filtroCategoria', {'idUser': receta.categoria.id })}}" class="rdr-tag" data-toggle="tooltip" data-placement="top" title="Encontrar recetas de {{ receta.categoria.nombre|lower }}">{{ receta.categoria.nombre }}</a>
+											<a href="{{ path('filtroCategoria', {'id': receta.categoria.id })}}" class="rdr-tag" data-toggle="tooltip" data-placement="top" title="Encontrar recetas de {{ receta.categoria.nombre|lower }}">{{ receta.categoria.nombre }}</a>
 										</span>
 									</div>
 									<div class="col-auto mb-2">
