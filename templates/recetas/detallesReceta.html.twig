@@ -54,7 +54,7 @@
 								<div class="row" id="autor">
 									<div class="col-sm-12 mb-2">
 										<p class="rdr-author">Receta de
-											<a href="{{ path('filtroUsuario' , {'idUser': receta.usuario.id })}}">{{receta.usuario.nombre}}</a>
+											<a href="{{ path('filtroUsuario' , {'idUser': receta.usuario.id })}}" data-toggle="tooltip" data-placement="top" title="Encontrar recetas de {{ receta.usuario.nombre }}">{{receta.usuario.nombre}}</a>
 											<img width="40" height="40" src="img/usuarios/{{receta.usuario.imagen}}" class="rdr-avatar" alt="{{receta.usuario.nombre}} - Cocinero en y ConEstoQueCocino" loading="lazy" sizes="(max-width: 40px) 100vw, 40px">
 										</p>
 									</div>
