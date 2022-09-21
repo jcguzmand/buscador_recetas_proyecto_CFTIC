@@ -19,7 +19,7 @@ class RecetasController extends AbstractController
     #[Route('/inicio', name: 'inicio')]
     public function inicio(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator)
     {
-        //dump('$request en inicio', $request);
+        dump('$request en inicio', $request);
 
         //Consulta de recetas por valoración
         $query = $em->createQuery(
@@ -47,7 +47,7 @@ class RecetasController extends AbstractController
         }
 
         //dump('$arrayTags en inicio', $arrayTags);
-        //dump('$recetas en inicio', $recetas);
+        dump('$recetas en inicio', $recetas);
 
         //Creación de la consulta de categorias para cargar en el select del menú
         $categorias = $em->getRepository(Categorias::class)->findAll();

@@ -19,7 +19,7 @@ class RecetasController extends AbstractController
     #[Route('/inicio', name: 'inicio')]
     public function inicio(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator)
     {
-        //dump('$request en inicio', $request);
+        dump('$request en inicio', $request);
 
         //Consulta de recetas por valoración
         $query = $em->createQuery(
